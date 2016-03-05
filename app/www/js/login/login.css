@@ -28,7 +28,7 @@
 }
 .login-input
 {
-  margin: 32px auto 15px;
+  margin: 26px auto 15px;
   width: 70%;
   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.4);
 }
@@ -42,5 +42,14 @@
 input.card .item.item-input input, .list-inset .item.item-input input, .padding > .list .item.item-input input, .padding-horizontal > .list .item.item-input input
 {
   padding: 0;
+  text-align: center;
+}
+.username-taken-error
+{
+  color: red;
+  border: 1px solid #e60000;
+  background-color: #ffe6e6;
+  padding: 5px;
+  margin-bottom: -22px;
   text-align: center;
 }

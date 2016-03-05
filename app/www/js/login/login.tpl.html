@@ -4,11 +4,11 @@
       <img src="img/city-capture.png">
     </div>
     <form ng-submit="login(name)">
+      <div class="username-taken-error login-input" ng-style="{ visibility: error ? 'visible' : 'hidden' }">Username is already taken</div>
       <div class="list list-inset login-input">
-        <label ng-class="{'error': state === 'error', 'good': state === 'good'}" class="item item-input">
+        <label ng-class="{'error': error, 'good': !error }" class="item item-input">
           <input class="login-field" type="text" placeholder="Enter a Username" ng-model="name">
         </label>
-        <div ng-show="state === 'error'">Name is already taken, please try a different name</div>
       </div>
       <button type="submit" class="button button-dark login-button ion-checkmark"></button>
     </form>

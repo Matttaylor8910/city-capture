@@ -8,7 +8,7 @@
 
   function LoginController($scope, $state, $ionicHistory, LoginService, localStorage)
   {
-    $scope.state = '';
+    $scope.error = false;
     $scope.login = login;
 
     if (localStorage.get('name', false) != false)
@@ -21,13 +21,15 @@
       LoginService.createUser(name).then(
         function successCallback(response)
         {
-          $scope.state = 'good';
+          //True is good for state
+          $scope.error = false;
           localStorage.set('name', name);
           goTo('app.games');
         }, 
         function errorCallback(response)
         {
-          $scope.state = 'error';
+          $scope.error = true;
+          $scope.name = '';
         });
     }
 
