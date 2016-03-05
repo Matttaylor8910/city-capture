@@ -8,6 +8,6 @@ function config($stateProvider)
     .state('app', {
       url         : '/app',
       abstract    : true,
-      templateUrl : 'js/menu/menu.tpl.html'
+      templateUrl : 'js/header/header.tpl.html'
     });
 }
