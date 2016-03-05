@@ -37,7 +37,7 @@
 ::-webkit-input-placeholder {
    font-style: italic;
 }
-.login-field
+input.card .item.item-input input, .list-inset .item.item-input input, .padding > .list .item.item-input input, .padding-horizontal > .list .item.item-input input
 {
   padding: 0;
   text-align: center;
