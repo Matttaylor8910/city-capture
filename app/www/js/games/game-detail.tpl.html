@@ -72,8 +72,16 @@
           Flags
         </div>
         <ion-item ng-repeat="location in game.locations" ui-sref="app.map({lat: location.lat, long: location.long })">
-          <h2>{{ location.name }}</h2>
-          <p>{{ location.address | shortAddress }}</p>
+          <div class="space-between">
+            <h2 class="inline-block">{{ location.name }}</h2>
+            <h2 class="inline-block orange-text" ng-show="location.orangeScore > 0">{{ location.orangeScore }} points</h2>
+            <h2 class="inline-block blue-text" ng-show="location.blueScore > 0">{{ location.blueScore }} points</h2>
+            <h2 class="inline-block" ng-show="location.orangeScore === 0 && location.blueScore === 0">This flag is unclaimed!</h2>
+          </div>
+          <div class="space-between">
+            <p class="inline-block">{{ location.address | shortAddress }}</p>
+            <p class="inline-block">0.3 mi</p>
+          </div>
         </ion-item>
       </ion-list>
     </div>
