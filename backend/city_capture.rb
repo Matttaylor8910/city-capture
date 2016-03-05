@@ -54,6 +54,7 @@ end
 
 # returns a random subset of the locations available
 # each game has a random subset of locations.
-def get_locations
-  hsh_to_a(locations).sample(5)
+def random_locations
+  firebase = database
+  hsh_to_a(firebase.get 'locations').sample(5)
 end 
