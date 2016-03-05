@@ -88,6 +88,9 @@ def distance(loc1, loc2)
   rm * c # Delta in meters
 end
 
+# save my butthole
+Thread.abort_on_exception = true
+
 # maintain games
 Thread.new do
   loop do
