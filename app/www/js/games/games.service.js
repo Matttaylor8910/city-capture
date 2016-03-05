@@ -4,8 +4,15 @@
 		.module('games')
 		.factory('GamesService', GamesService);
 
-  function GamesService()
+  function GamesService($http)
   {
-    return {};
+    return {
+    	getGames: getGames
+    };
+
+    function getGames()
+    {
+    	return $http.get('mock-json/games.json');
+    }
   }
 })();

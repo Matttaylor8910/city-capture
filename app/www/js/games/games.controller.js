@@ -4,27 +4,20 @@
     .module('games')
     .controller('GamesController', GamesController);
 
-  GamesController.$inject = ['$scope'];
+  GamesController.$inject = ['$scope', 'GamesService'];
 
-  function GamesController($scope)
+  function GamesController($scope, GamesService)
   {
-    $scope.games = [
-      {
-        name: "Ferocious Toothbrush",
-        startTime: 1457272800,
-        endTime: 1457280000,
-        players: [ 
-          {}, {}, {} 
-        ]
-      }
-    ];
-
-    _.each($scope.games, function(game)
+    // Get games from database
+    GamesService.getGames().then(
+    function(response)
     {
-      game.startMoment = moment.unix(game.startTime);
-      game.endMoment= moment.unix(game.endTime);
+      $scope.games = response.data;
+      _.each($scope.games, function(game)
+      {
+        game.startMoment = moment.unix(game.startTime);
+        game.endMoment= moment.unix(game.endTime);
+      });
     });
-
-    console.log($scope.games);
   }
 })();
