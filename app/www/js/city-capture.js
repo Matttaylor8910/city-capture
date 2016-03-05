@@ -3,7 +3,9 @@
   angular
     .module('city-capture', [
       'ionic',
+      'ionic.utils',
       'ngIOS9UIWebViewPatch',
+      'ngCordova',
 
       'about',
       'capture-points',
