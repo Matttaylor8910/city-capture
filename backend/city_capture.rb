@@ -105,7 +105,7 @@ Thread.new do
       # start a five minute game
       # TODO: make this six hours
       firebase.push('games', startTime: Time.now.to_i,
-                             endTime: Time.now.to_i + 60,
+                             endTime: Time.now.to_i + 300,
                              locations: random_locations,
                              orangeTeam: [],
                              blueTeam: [],
