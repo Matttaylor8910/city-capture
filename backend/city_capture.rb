@@ -121,11 +121,7 @@ set :port, 4545
 # app
 set :public_folder, '../app/www'
 enable :static
-
-# fucking piece of shit ionic fuck shit fuck
-configure do
-  enable :cross_origin
-end
+enable :cross_origin
 
 # redirect to index
 get '/' do
