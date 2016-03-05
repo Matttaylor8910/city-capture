@@ -17,7 +17,7 @@
       },
       {
         question: 'What are points?',
-        answer: 'Points specify how long a team was at a location. Every 1 second, you gain 1 point for your team for the flag that you are at.'
+        answer: 'Points specify how long a team was at a location. Every 1 second, you gain 1 point for every member of your team that is at the location.'
       },
       {
         question: 'How long are the games?',
