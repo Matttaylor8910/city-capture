@@ -6,11 +6,11 @@
     <form ng-submit="login(name)">
       <div class="list list-inset login-input">
         <label ng-class="{'error': state === 'error', 'good': state === 'good'}" class="item item-input">
-          <input class="login-field" type="text" placeholder="Username" ng-model="name">
+          <input class="login-field" type="text" placeholder="Enter a Username" ng-model="name">
         </label>
         <div ng-show="state === 'error'">Name is already taken, please try a different name</div>
       </div>
-      <button type="submit" class="button button-dark login-button">Done</button>
+      <button type="submit" class="button button-dark login-button ion-checkmark"></button>
     </form>
   </ion-content>
 </ion-view>
