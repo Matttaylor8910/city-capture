@@ -1,8 +1,59 @@
 <ion-view view-title="{{ game.name }}">
   <ion-content has-bouncing="true">
-    <div>{{ game.name }}</div>
-    <button ng-click="join('blue', game)">Join Blue</button>
-    <button ng-click="join('orange', game)">Join Orange</button>
-    <players>
+
+    <!-- The top scoreboard -->
+    <div class="top-content">
+      <!-- Timer and scores -->
+      <div class="space-between">
+        <div>
+          <div class="orange-score">17</div>
+          <div class="score-label">Locations</div>
+        </div>
+        <div class="time-remaining">01:17:32</div>
+        <div>
+          <div class="blue-score">10</div>
+          <div class="score-label">Locations</div>
+        </div>
+      </div>
+      <!-- Time and map link -->
+      <div class="space-between time-and-map">
+        <div>
+          {{ game.startMoment.format('h:mm a') }} - 
+          {{ game.endMoment.format('h:mm a') }}
+        </div>
+        <div ui-sref="app.map">See Full Map ></div>
+      </div>
+    </div>
+
+    <!-- Sexy divider -->
+    <div class="sexy-divider"></div>
+
+    <!-- Game not started case -->
+    <div class="game-not-started" ng-show="false">
+      <!-- Game countdown -->
+      <div class="starts-in">Game Starts in:</div>
+      <div class="time-remaining starts-countdown">0:37:10</div>
+      <!-- Join buttons -->
+      <div class="join-buttons">
+        <button class="button button-energized join-button" ng-click="join('orange', game)">
+          <div class="join-text">Join</div> 
+          <div>Orange Team</div>
+        </button>
+        <button class="button button-positive join-button" ng-click="join('blue', game)">
+          <div class="join-text">Join</div> 
+          <div>Blue Team</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- The flag list -->
+    <div class="flag-list" ng-show="true">
+      <ion-list>
+        <ion-item ng-repeat="location in game.locations">
+          <h2>{{ location.name }}</h2>
+          <p>{{ location.address }}</p>
+        </ion-item>
+      </ion-list>
+    </div>
   </ion-content>
 </ion-view>

@@ -1,3 +1,4 @@
+/*Games list related*/
 .games-divider
 {
   float:left;
@@ -23,4 +24,81 @@
 .time-start
 {
   padding-bottom: 3px;
+}
+
+/*Timer and scores related*/
+.time-remaining
+{
+  font-size: 34px;
+  line-height: 40px;
+  padding: 5px;
+  height: 50px;
+}
+.score-label
+{
+  padding: 0px 10px;
+  color: grey;
+}
+.blue-score
+{
+  color: blue;
+  font-size: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.orange-score
+{
+  color: orange;
+  font-size: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+/*Sexy divider*/
+.sexy-divider
+{
+  height: 3px;
+  background-color: black;
+  margin: 10px 10px 20px;
+}
+
+/*Time and map related*/
+.time-and-map
+{
+  margin: 10px;
+  color: grey;
+}
+
+/*Game starts in*/
+.starts-in
+{
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 24px;
+}
+.starts-countdown
+{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/*Join buttons*/
+.join-buttons
+{
+  display: flex;
+  justify-content: space-around;
+}
+.join-button
+{
+  width: 130px;
+  line-height: 25px;
+  cursor: pointer;
+  border-width: 2px;
+}
+.join-text
+{
+  font-size: 24px;
+  font-weight: bold;
 }

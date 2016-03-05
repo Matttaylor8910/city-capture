@@ -16,3 +16,13 @@
   padding-right: 4px;
   padding-left: 2px;
 }
+.space-between
+{
+  display: flex;
+  justify-content: space-between;
+}
+.space-around
+{
+  display: flex;
+  justify-content: space-around;
+}

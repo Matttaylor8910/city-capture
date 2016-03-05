@@ -4,23 +4,30 @@
     .module('games')
     .controller('GamesController', GamesController);
 
-  GamesController.$inject = ['$scope', 'GamesService'];
+  GamesController.$inject = ['$scope', '$interval', 'GamesService'];
 
-  function GamesController($scope, GamesService)
+  function GamesController($scope, $interval, GamesService)
   {
     $scope.players = players;
+    
+    refresh();
+    $interval(refresh, 5000);
 
     // Get games from database
-    GamesService.getGames().then(
-    function(response)
+    function refresh()
     {
-      $scope.games = response.data;
-      _.each($scope.games, function(game)
+      GamesService.getGames().then(
+      function(response)
       {
-        game.startMoment = moment.unix(game.startTime);
-        game.endMoment= moment.unix(game.endTime);
+        $scope.games = response.data;
+        _.each($scope.games, function(game)
+        {
+          game.startMoment = moment.unix(game.startTime);
+          game.endMoment= moment.unix(game.endTime);
+        });
+        $scope.$broadcast('scroll.refreshComplete');
       });
-    });
+    }
 
     function players(game)
     {
