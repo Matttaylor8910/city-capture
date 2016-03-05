@@ -196,7 +196,13 @@ get '/' do
   redirect 'index.html'
 end
 
-options '/' do
+# CORS
+options "*" do
+  response.headers["Allow"] = "HEAD,GET,PUT,DELETE,OPTIONS"
+
+  # Needed for AngularJS
+  response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept"
+
   200
 end
 
