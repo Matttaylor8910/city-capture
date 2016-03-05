@@ -115,3 +115,19 @@ Thread.new do
     puts 'checkin shit'
   end
 end
+
+# custom port for custom shit
+set :port, 4545
+# app
+set :public_folder, '../app/www'
+
+# redirect to index
+get '/' do
+  redirect 'index.html'
+end
+
+namespace '/v1' do
+  post '/add/user/:name' do |name|
+    add_user name
+  end
+end
