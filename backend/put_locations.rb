@@ -6,6 +6,7 @@ require 'firebase'
 require 'json'
 
 firebase = Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
+# firebase = Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
 
 locations = JSON.parse(File.read('locations.json'))
 

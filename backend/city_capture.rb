@@ -12,6 +12,7 @@ require 'sinatra/reloader'
 # million times over the weekend
 def firebase
   Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
+  # Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
 end
 
 # converts a hash to an array where each key is an index
@@ -91,6 +92,11 @@ end
 # save my butthole
 Thread.abort_on_exception = true
 
+# kill the baby threads in the case that we just reloaded
+Thread.list.each do |thread|
+  thread.exit unless thread == Thread.current
+end
+
 # maintain games
 Thread.new do
   loop do
@@ -160,7 +166,7 @@ namespace '/v1' do
   end
 
   post '/location' do
-    body = JSON.parse request.body
+    body = JSON.parse request.body.read
 
     # Not implemented
     501
@@ -171,14 +177,23 @@ namespace '/v1' do
   end
 
   post '/games/join' do
-    body = JSON.parse request.body
+    body = JSON.parse request.body.read
+    name = body['name']
+    game = body['game']
+    team = body['team']
 
-    # Not implemented
-    501
+    if team == 'orange'
+      firebase.push("games/#{game}/orangeTeam", name)
+    else
+      firebase.push("games/#{game}/blueTeam", name)
+    end
+    200
   end
 
   post '/games/leave' do
-    body = JSON.parse request.body
+    body = JSON.parse request.body.read
+    name = body['name']
+    game = body['game']
 
     # Not implemented
     501
