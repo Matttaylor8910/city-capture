@@ -126,8 +126,9 @@ get '/' do
   redirect 'index.html'
 end
 
+# client api
 namespace '/v1' do
-  post '/add/user/:name' do |name|
+  post '/users/add/:name' do |name|
     add_user name
   end
 end
