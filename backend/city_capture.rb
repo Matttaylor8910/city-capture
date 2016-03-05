@@ -93,6 +93,7 @@ Thread.new do
   loop do
     # check if any games are present; if there aren't, we probably just started
     if games.empty?
+      puts 'games is empty o no'
       # start a one minute game
       # TODO: make this one hour
       firebase.push('games', startTime: Time.now.to_i,
@@ -115,6 +116,7 @@ Thread.new do
     # end games that are over
     ended = games_raw.select { |_id, g| Time.now.to_i > g['endTime'] }
     ended.each do |id, g|
+      puts "removing #{id}"
       # remove the game from the db
       # TODO: calc some stats here
       firebase.delete "games/#{id}"
