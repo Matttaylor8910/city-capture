@@ -12,8 +12,9 @@
         url: '/games',
         views: {
           menuContent: {
+            templateUrl: 'js/games/games.tpl.html',
             controller: 'GamesController',
-            templateUrl: 'js/games/games.tpl.html'
+            controllerAs: 'gamesVM'
           }
         }
       });

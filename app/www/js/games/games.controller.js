@@ -4,10 +4,17 @@
     .module('games')
     .controller('GamesController', GamesController);
 
-  GamesController.$inject = [];
+  GamesController.$inject = ['$scope'];
 
-  function GamesController()
+  function GamesController($scope)
   {
-    
+    $scope.games = [
+      {
+        name: "Some Game"
+      },
+      {
+        name: "some other thing"
+      }
+    ];
   }
 })();
