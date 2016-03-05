@@ -18,7 +18,7 @@
 
       mapOptions = {
           center: new google.maps.LatLng(43.604206, -116.204356),
-          zoom: 15,
+          zoom: 16,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false,
           streetViewControl: false,
@@ -38,9 +38,17 @@
         setLocations(response.data.locations,map);
       });
 
+      var locationIcon = new google.maps.MarkerImage(
+              "img/blue-dot.png",
+              null, /* size is determined at runtime */
+              null, /* origin is 0,0 */
+              null, /* anchor is bottom center of the scaled image */
+              new google.maps.Size(18, 18)
+          ); 
+
       myLoc = new google.maps.Marker({
           clickable: false,
-          icon: 'img/orange-dot.png',
+          icon: locationIcon,
           shadow: null,
           zIndex: 999,
           map: map
@@ -51,7 +59,9 @@
 
       function currentPositionSuccess(pos) 
       {
-        myLoc.setPosition(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+        var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        myLoc.setPosition(location);
+        map.panTo(location);
       }
 
       function watchSuccess(pos)
@@ -68,11 +78,18 @@
       {
         _.each(locations, function(location)
         {
+          var pinIcon = new google.maps.MarkerImage(
+              "img/orange-flag.png",
+              null, /* size is determined at runtime */
+              null, /* origin is 0,0 */
+              null, /* anchor is bottom center of the scaled image */
+              new google.maps.Size(20, 24)
+          ); 
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng(location.lat, location.long),
             map: map,
             title: location.name,
-            icon: 'img/orange-flag.png'
+            icon: pinIcon
           });
 
           marker.addListener('click', function()
