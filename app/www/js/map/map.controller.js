@@ -50,7 +50,7 @@
       }
 
       function watchSuccess(pos) {
-        myLocation = pos.coords;
+        currentPositionSuccess(pos);
       }
 
       function watchError(err) {
