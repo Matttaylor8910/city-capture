@@ -103,9 +103,9 @@ def distance(loc1, loc2)
 end
 
 # kill the baby threads in the case that we just reloaded
-Thread.list.each do |thread|
+Thread.list.each do |t|
   begin
-    Thread.kill(thread) unless thread == Thread.current
+    Thread.kill(t) unless t == Thread.current || t == Thread.main
   rescue SystemExit
     puts 'bro chill'
   end
