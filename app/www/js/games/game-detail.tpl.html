@@ -73,7 +73,7 @@
         </div>
         <ion-item ng-repeat="location in game.locations" ui-sref="app.map({lat: location.lat, long: location.long })">
           <h2>{{ location.name }}</h2>
-          <p>{{ location.address }}</p>
+          <p>{{ location.address | shortAddress }}</p>
         </ion-item>
       </ion-list>
     </div>
