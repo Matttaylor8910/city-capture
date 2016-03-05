@@ -8,62 +8,47 @@
 
   function MapController($scope, $ionicLoading)
   {
-    initializeMap();
-    google.maps.event.addDomListener(window, 'load', initializeMap);
-  };
+    google.maps.event.addDomListener(window, 'load', function() 
+    {
+      var myLatlng, myLocation, mapOptions, map, watchOptions;
 
-  function initializeMap()
-  {
-    var latlng, mapOptions, map, watchOptions;
+      mapOptions = {
+          center: myLatlng,
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          streetViewControl: false,
+          zoomControl: false
+      };
 
-    mapOptions = {
-        center: myLatlng,
-        zoom: 16,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false,
-        streetViewControl: false,
-        zoomControl: false
-    };
+      // watchOptions = {
+      //   enableHighAccuracy: false,
+      //   timeout: 5000,
+      //   maximumAge: 0
+      // };
 
-    watchOptions = {
-      enableHighAccuracy: false,
-      timeout: 5000,
-      maximumAge: 0
-    };
+      map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    //define a default-position
-    var coords = new google.maps.MVCObject();
-    coords.set('latlng', new google.maps.LatLng(52.370215, 4.895167));
+      navigator.geolocation.getCurrentPosition(function(pos) {
+          map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+          myLocation = new google.maps.Marker({
+              position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+              map: map,
+              title: "Current Location"
+          });
+      });
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success);
-    }
+      // function watchSuccess(pos) {
+      //   myLocation = pos.coords;
+      // }
 
+      // function watchError(err) {
+      //   console.warn('ERROR(' + err.code + '): ' + err.message);
+      // }
 
-    //set new value for coords
-    function success(position) {
-        coords.set('latlng',
-            new google.maps.LatLng(position.coords.latitude,
-                position.coords.longitude));
-    }
+      //navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
 
-    var mapOptions = {
-        zoom: 11,
-        center: coords.get('latlng')
-    };
-
-    var map = new google.maps.Map(document.getElementById("map"),
-        mapOptions);
-
-    var marker = new google.maps.Marker({
-        position: coords.get('latlng'),
-        map: map
-    });
-
-    google.maps.event.addListenerOnce(coords, 'latlng_changed', function () {
-        var latlng = this.get('latlng');
-        map.setCenter(latlng);
-        marker.setPosition(latlng)
+      $scope.map = map;
     });
   };
 })();
