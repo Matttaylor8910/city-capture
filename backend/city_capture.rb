@@ -137,10 +137,10 @@ Thread.new do
     # check if any games are present; if there aren't, we probably just started
     if games.empty?
       puts 'games is empty o no'
-      # start a one minute game
+      # start a thirty minute game
       # TODO: make this one hour and remove random teams
       firebase.push('games', startTime: Time.now.to_i,
-                             endTime: Time.now.to_i + 60,
+                             endTime: Time.now.to_i + 1800,
                              locations: random_locations,
                              orangeTeam: random_team,
                              blueTeam: random_team,
@@ -164,11 +164,11 @@ Thread.new do
       # TODO: calc some stats here
       firebase.delete "games/#{g['id']}"
 
-      # create a new game with the same length that will start in one minute
+      # create a new game with the same length that will start in five minutes
       # TODO: make this fifteen minutes
       firebase.push('games', endTime: Time.now.to_i +
-                               (g['endTime'] - g['startTime']) + 60,
-                             startTime: Time.now.to_i + 60,
+                               (g['endTime'] - g['startTime']) + 300,
+                             startTime: Time.now.to_i + 300,
                              locations: random_locations,
                              orangeTeam: random_team,
                              blueTeam: random_team,
