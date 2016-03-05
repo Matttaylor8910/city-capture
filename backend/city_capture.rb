@@ -187,9 +187,8 @@ set :port, 4545
 # app
 set :public_folder, '../app/www'
 enable :static
-configure do
-  enable :cross_origin
-end
+enable :cross_origin
+set :protection, :except => :json_csrf
 
 # redirect to index
 get '/' do
