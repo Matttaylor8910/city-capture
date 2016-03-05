@@ -182,17 +182,22 @@ Thread.new do
   end
 end
 
-# custom port for custom shit
-set :port, 4545
-# app
-set :public_folder, '../app/www'
-enable :static
-enable :cross_origin
-set :protection, :except => :json_csrf
+configure do
+  # custom port for custom shit
+  set :port, 4545
+  # app
+  set :public_folder, '../app/www'
+  enable :static
+  enable :cross_origin
+end
 
 # redirect to index
 get '/' do
   redirect 'index.html'
+end
+
+options '/' do
+  200
 end
 
 # client api
