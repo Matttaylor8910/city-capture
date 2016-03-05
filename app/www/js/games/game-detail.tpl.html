@@ -76,7 +76,7 @@
             <h2 class="inline-block">{{ location.name }}</h2>
             <h2 class="inline-block orange-text" ng-show="location.orangeScore > 0">{{ location.orangeScore }} points</h2>
             <h2 class="inline-block blue-text" ng-show="location.blueScore > 0">{{ location.blueScore }} points</h2>
-            <h2 class="inline-block" ng-show="location.orangeScore === 0 && location.blueScore === 0">This flag is unclaimed!</h2>
+            <h2 class="inline-block" ng-show="location.orangeScore === 0 && location.blueScore === 0">Unclaimed</h2>
           </div>
           <div class="space-between">
             <p class="inline-block">{{ location.address | shortAddress }}</p>
