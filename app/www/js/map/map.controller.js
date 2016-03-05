@@ -4,21 +4,22 @@
     .module('map')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['$scope','$ionicLoading','MapService'];
+  MapController.$inject = ['$scope', '$stateParams','$ionicLoading','MapService'];
 
-  function MapController($scope, $ionicLoading, MapService)
+  function MapController($scope, $stateParams, $ionicLoading, MapService)
   {
-      var myLatlng, myLoc, myLocation, mapOptions, map, watchOptions;
+      var myLatlng, myLocation, mapOptions, map, watchOptions;
 
       // var refString = 'https://torrid-fire-239.firebaseio.com/';
       // var myFirebaseRef = new Firebase('https://torrid-fire-239.firebaseio.com/games/-KC5CrQeDqAztgO6g2kG.json');
       // myFirebaseRef.child("locations").on("value", function(location) {
       //   console.log(location);
       // });
+      $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
 
       mapOptions = {
           center: new google.maps.LatLng(43.604206, -116.204356),
-          zoom: 16,
+          zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false,
           streetViewControl: false,
@@ -32,6 +33,7 @@
       };
 
       map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
       MapService.getLocations().then(
       function(response)
       {
@@ -46,7 +48,7 @@
               new google.maps.Size(18, 18)
           ); 
 
-      myLoc = new google.maps.Marker({
+      myLocation = new google.maps.Marker({
           clickable: false,
           icon: locationIcon,
           shadow: null,
@@ -57,11 +59,12 @@
       navigator.geolocation.getCurrentPosition(currentPositionSuccess);
       navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
 
+
       function currentPositionSuccess(pos) 
       {
-        var location = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        myLoc.setPosition(location);
-        map.panTo(location);
+        myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        map.panTo(myLatlng);
+        myLocation.setPosition(myLatlng);
       }
 
       function watchSuccess(pos)

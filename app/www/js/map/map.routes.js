@@ -10,6 +10,10 @@
       .state('app.map',
       {
         url: '/map',
+        params: {
+          'lat': '',
+          'long': ''        
+        },
         views: {
           menuContent: {
             templateUrl: 'js/map/map.tpl.html',
