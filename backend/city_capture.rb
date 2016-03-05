@@ -120,6 +120,7 @@ end
 set :port, 4545
 # app
 set :public_folder, '../app/www'
+enable :static
 
 # fucking piece of shit ionic fuck shit fuck
 configure do
