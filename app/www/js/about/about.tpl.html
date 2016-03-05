@@ -1,4 +1,19 @@
 <ion-view view-title="About">
   <ion-content has-bouncing="true">
+    <div class="list">
+
+      <div class="item item-divider">
+        <i class="icon ion-ios-help-outline"></i>
+        Frequently Asked Questions
+      </div>
+
+      <div class="card" ng-repeat="faq in FAQs">
+        <div class="item item-text-wrap">
+          <h2>{{ faq.question }}</h2>
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+
+    </div>
   </ion-content>
 </ion-view>
