@@ -1,12 +1,4 @@
 <ion-view view-title="{{ game.name }}">
-  
-  <!-- Will remove, just to demo -->
-  <ion-nav-buttons side="right">
-    <button class="button button-clear" ng-click="toggle()">
-      <div style="font-size: 30px;" ng-class="{'ion-toggle': toggled, 'ion-toggle-filled': !toggled}"></div>
-    </button>
-  </ion-nav-buttons>
-
   <ion-content has-bouncing="true">
 
     <!-- The top scoreboard -->
@@ -29,12 +21,12 @@
           {{ start }} - 
           {{ end }}
         </div>
-        <div ui-sref="app.map" ng-class="{'invisible': toggled}">See Full Map ></div>
+        <div ui-sref="app.map" ng-class="{'invisible': !inProgress}">See Full Map ></div>
       </div>
     </div>
 
     <!-- Game not started case -->
-    <div class="game-not-started" ng-show="toggled">
+    <div class="game-not-started" ng-show="!inProgress">
       <div class="card">
         <!-- Game countdown -->
         <div class="item item-divider center">Game starts in {{ timeTillGame | seconds }}</div>
@@ -65,7 +57,7 @@
     </div>
 
     <!-- The flag list -->
-    <div class="card flag-list" ng-show="!toggled">
+    <div class="card flag-list" ng-show="inProgress">
       <ion-list>
         <div class="item item-divider">
           Flags

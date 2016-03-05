@@ -9,18 +9,12 @@
   function GameDetailController($scope, $state, $stateParams, $interval, $ionicHistory, $firebase, GamesService, localStorage)
   {
     bindGames($stateParams.id);
-    $scope.toggled = true;
+    $scope.inProgress = false;
 
-    $scope.toggle = toggle;
     $scope.join = join;
 
     // Update timers every second
     $interval(updateTimers, 1000);
-
-    function toggle()
-    {
-      $scope.toggled = !$scope.toggled;
-    }
 
     function join(color, game)
     {
@@ -76,17 +70,27 @@
         });
         $scope.start = moment.unix(newVal.startTime).format('h:mm a');
         $scope.end = moment.unix(newVal.endTime).format('h:mm a');
-        console.log(moment.unix(newVal.endTime).format('h:mm a'));
-        $scope.duration = moment().valueOf() > newVal.startTime ? newVal.endTime - moment().valueOf() : newVal.endTime - newVal.startTime;
+        var now = moment().valueOf()/1000;
+        $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
+        $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
         $scope.blue = blue;
         $scope.orange = orange;
       });
 
+    $scope.$watch('timeTillGame', function(newVal)
+    {
+      if ($scope.timeTillGame === 0)
+        $scope.inProgress = true;
+    });
+
     function updateTimers()
     {
       // game timer
-      if ($scope.duration)
+      var now = moment().valueOf()/1000;
+      if ($scope.duration && now > $scope.game.startTime)
         $scope.duration--;
+      if ($scope.timeTillGame && now < $scope.game.startTime)
+        $scope.timeTillGame--;
     }
   }
 })();
