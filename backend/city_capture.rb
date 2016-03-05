@@ -187,6 +187,7 @@ configure do
   set :port, 4545
   # app
   set :public_folder, '../app/www'
+  set :protection, except: [:json_csrf]
   enable :static
   enable :cross_origin
 end
