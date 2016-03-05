@@ -23,8 +23,12 @@ def hsh_to_a(hsh)
 end
 
 # returns a list of ongoing games
+# also adds an id key to each element in the array where id = firebases' UID
 def games
-  hsh_to_a(games_raw)
+  raw = games_raw
+  return [] if raw.nil?
+  raw.each_key { |k| raw[k]['id'] = k }
+  hsh_to_a(raw)
 end
 
 # returns the raw games firebase hash
@@ -123,12 +127,12 @@ Thread.new do
     end
 
     # end games that are over
-    ended = games_raw.select { |_id, g| Time.now.to_i > g['endTime'] }
-    ended.each do |id, g|
-      puts "removing #{id}"
+    ended = games.select { |g| Time.now.to_i > g['endTime'] }
+    ended.each do |g|
+      puts "removing #{g['id']}"
       # remove the game from the db
       # TODO: calc some stats here
-      firebase.delete "games/#{id}"
+      firebase.delete "games/#{g['id']}"
 
       # create a new game with the same length
       firebase.push('games', endTime: Time.now.to_i +
@@ -161,8 +165,7 @@ end
 # client api
 namespace '/v1' do
   get '/games' do
-    # Not implemented
-    501
+    json games
   end
 
   post '/location' do
