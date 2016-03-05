@@ -9,7 +9,15 @@
   function GameDetailController($scope, $stateParams, GamesService, localStorage)
   {
     $scope.game = $stateParams.game;
+    $scope.toggled = true;
+
+    $scope.toggle = toggle;
     $scope.join = join;
+
+    function toggle()
+    {
+      $scope.toggled = !$scope.toggled;
+    }
 
     function join(color, game)
     {

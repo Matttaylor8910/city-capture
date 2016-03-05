@@ -11,7 +11,7 @@
     $scope.players = players;
     
     refresh();
-    $interval(refresh, 5000);
+    // $interval(refresh, 5000);
 
     // Get games from database
     function refresh()

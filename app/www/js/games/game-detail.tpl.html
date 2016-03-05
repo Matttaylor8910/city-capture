@@ -1,4 +1,12 @@
 <ion-view view-title="{{ game.name }}">
+  
+  <!-- Will remove, just to demo -->
+  <ion-nav-buttons side="right">
+    <button class="button button-clear" ng-click="toggle()">
+      <div style="font-size: 30px;" ng-class="{'ion-toggle': toggled, 'ion-toggle-filled': !toggled}"></div>
+    </button>
+  </ion-nav-buttons>
+
   <ion-content has-bouncing="true">
 
     <!-- The top scoreboard -->
@@ -29,7 +37,7 @@
     <div class="sexy-divider"></div>
 
     <!-- Game not started case -->
-    <div class="game-not-started" ng-show="false">
+    <div class="game-not-started" ng-show="toggled">
       <!-- Game countdown -->
       <div class="starts-in">Game Starts in:</div>
       <div class="time-remaining starts-countdown">0:37:10</div>
@@ -47,8 +55,11 @@
     </div>
 
     <!-- The flag list -->
-    <div class="flag-list" ng-show="true">
+    <div class="flag-list" ng-show="!toggled">
       <ion-list>
+        <div class="item item-divider">
+          Flags
+        </div>
         <ion-item ng-repeat="location in game.locations">
           <h2>{{ location.name }}</h2>
           <p>{{ location.address }}</p>
