@@ -9,7 +9,6 @@
   function GameDetailController($scope, $state, $stateParams, $interval, $ionicHistory, $firebase, GamesService, localStorage)
   {
     bindGames($stateParams.id);
-    $scope.inProgress = false;
 
     $scope.join = join;
 
@@ -20,9 +19,9 @@
     {
       var obj = {
         name: localStorage.get('name'),
-        game: game.id,
+        game: game.$id,
         team: color
-      }
+      };
       GamesService.joinGame(obj);
       localStorage.setObject('game', game);
       localStorage.setObject('team', color);
@@ -55,7 +54,6 @@
           $state.go('app.games');
         }
         var orange = 0, blue = 0;
-        console.log(newVal);
 
         _.each(newVal.locations, function(location)
         {
@@ -77,20 +75,20 @@
         $scope.orange = orange;
       });
 
-    $scope.$watch('timeTillGame', function(newVal)
-    {
-      if ($scope.timeTillGame === 0)
-        $scope.inProgress = true;
-    });
-
     function updateTimers()
     {
       // game timer
       var now = moment().valueOf()/1000;
-      if ($scope.duration && now > $scope.game.startTime)
+      if ($scope.duration && now >= $scope.game.startTime)
+      {
         $scope.duration--;
-      if ($scope.timeTillGame && now < $scope.game.startTime)
+        $scope.state = 'inProgress';
+      }
+      if ($scope.timeTillGame && now <= $scope.game.startTime)
+      {
         $scope.timeTillGame--;
+        $scope.state = 'join';
+      }
     }
   }
 })();

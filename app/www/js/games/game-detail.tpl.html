@@ -26,7 +26,7 @@
     </div>
 
     <!-- Game not started case -->
-    <div class="game-not-started" ng-show="!inProgress">
+    <div class="game-not-started" ng-show="state === 'join'">
       <div class="card">
         <!-- Game countdown -->
         <div class="item item-divider center">Game starts in {{ timeTillGame | seconds }}</div>
@@ -57,7 +57,7 @@
     </div>
 
     <!-- The flag list -->
-    <div class="card flag-list" ng-show="inProgress">
+    <div class="card flag-list" ng-show="state === 'inProgress'">
       <ion-list>
         <div class="item item-divider">
           Flags
