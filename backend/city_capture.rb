@@ -104,7 +104,7 @@ end
 
 # kill the baby threads in the case that we just reloaded
 Thread.list.each do |thread|
-  thread.exit unless thread == Thread.current
+  Thread.kill(thread) unless thread == Thread.current
 end
 
 # maintain games
