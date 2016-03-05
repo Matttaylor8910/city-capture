@@ -1,6 +1,6 @@
 @font-face {
   font-family: moderne;
-  src: url('/css/font/MODERNE SANS.ttf');
+  src: url('font/MODERNE SANS.ttf');
 }
 
 .button
@@ -39,7 +39,7 @@
 ion-content
 {
   background-color: #073DA3;
-  background-image: url('../../img/city.png');
+  background-image: url('city.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom center;
