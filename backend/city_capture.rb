@@ -180,13 +180,10 @@ namespace '/v1' do
     body = JSON.parse request.body.read
     name = body['name']
     game = body['game']
-    team = body['team']
+    team = body['team'] + 'Team'
 
-    if team == 'orange'
-      firebase.push("games/#{game}/orangeTeam", name)
-    else
-      firebase.push("games/#{game}/blueTeam", name)
-    end
+    firebase.push("games/#{game}/#{team}", name)
+
     200
   end
 
@@ -194,8 +191,12 @@ namespace '/v1' do
     body = JSON.parse request.body.read
     name = body['name']
     game = body['game']
+    team = body['team'] + 'Team'
 
-    # Not implemented
-    501
+    # find the key to remove
+    key = games_raw[game][team].key(name)
+    firebase.delete "games/#{game}/#{team}/#{key}"
+
+    200
   end
 end
