@@ -91,7 +91,7 @@ end
 # returns a random name for a game
 # for now, we are boring
 def random_name
-  "Game #{rand 1000}"
+  File.readlines('names').sample.chomp
 end
 
 # debug function to generate a list of random fake users
