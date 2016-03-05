@@ -34,8 +34,6 @@ def games
     # instantiate teams if they were nil
     raw[key]['orangeTeam'] ||= []
     raw[key]['blueTeam'] ||= []
-    raw[key]['orangeTeam'] = hsh_to_a raw[key]['orangeTeam']
-    raw[key]['blueTeam'] = hsh_to_a raw[key]['blueTeam']
   end
   hsh_to_a(raw)
 end
