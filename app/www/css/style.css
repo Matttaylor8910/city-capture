@@ -35,3 +35,22 @@
   display: flex;
   justify-content: space-around;
 }
+
+ion-content
+{
+  background-color: #073DA3;
+  background-image: url('../../img/city.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom center;
+}
+
+.card
+{
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.7);
+}
+.center
+{
+  display: flex;
+  justify-content: center;
+}

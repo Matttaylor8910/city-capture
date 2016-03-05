@@ -10,7 +10,7 @@
   <ion-content has-bouncing="true">
 
     <!-- The top scoreboard -->
-    <div class="top-content">
+    <div class="card top-content">
       <!-- Timer and scores -->
       <div class="space-between">
         <div>
@@ -33,29 +33,40 @@
       </div>
     </div>
 
-    <!-- Sexy divider -->
-    <div class="sexy-divider"></div>
-
     <!-- Game not started case -->
     <div class="game-not-started" ng-show="toggled">
-      <!-- Game countdown -->
-      <div class="starts-in">Game Starts in:</div>
-      <div class="time-remaining starts-countdown">0:37:10</div>
-      <!-- Join buttons -->
-      <div class="join-buttons">
-        <button class="button button-energized join-button" ng-click="join('orange', game)">
-          <div class="join-text">Join</div> 
-          <div>Orange Team</div>
-        </button>
-        <button class="button button-positive join-button" ng-click="join('blue', game)">
-          <div class="join-text">Join</div> 
-          <div>Blue Team</div>
-        </button>
+      <div class="card">
+        <!-- Game countdown -->
+        <div class="item item-divider center">Next game in 0:37:10</div>
+        <!-- <div class="time-remaining starts-countdown">0:37:10</div> -->
+        <!-- Join buttons -->
+        <ion-item class="join-buttons">
+          <button class="button button-energized join-button" ng-click="join('orange', game)">
+            <div class="join-text">Join</div> 
+            <!-- <div>Orange Team</div> -->
+          </button>
+          <button class="button button-positive join-button" ng-click="join('blue', game)">
+            <div class="join-text">Join</div> 
+            <!-- <div>Blue Team</div> -->
+          </button>
+        </ion-item>
+        <ion-item class="space-around">
+          <div>Matt</div>
+          <div>Conner</div>
+        </ion-item>
+        <ion-item class="space-around">
+          <div>Brik</div>
+          <div>Bunny</div>
+        </ion-item>
+        <ion-item class="space-around">
+          <div>Josh</div>
+          <div>Roger</div>
+        </ion-item>
       </div>
     </div>
 
     <!-- The flag list -->
-    <div class="flag-list" ng-show="!toggled">
+    <div class="card flag-list" ng-show="!toggled">
       <ion-list>
         <div class="item item-divider">
           Flags
