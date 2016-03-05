@@ -164,8 +164,8 @@ Thread.new do
 
       # TODO: make this fifteen minutes between games
       firebase.push('games', endTime: Time.now.to_i +
-                               (g['endTime'] - g['startTime']) + 300,
-                             startTime: Time.now.to_i + 300,
+                               (g['endTime'] - g['startTime']) + 60,
+                             startTime: Time.now.to_i + 60,
                              locations: random_locations,
                              orangeTeam: random_team,
                              blueTeam: random_team,
