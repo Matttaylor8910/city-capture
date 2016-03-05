@@ -105,11 +105,15 @@ end
 # kill the baby threads in the case that we just reloaded
 Thread.list.each do |t|
   begin
+    puts "killing #{t}"
     Thread.kill(t) unless t == Thread.current || t == Thread.main
   rescue SystemExit
     puts 'bro chill'
   end
 end
+
+# worth a shot?
+sleep 1
 
 # maintain games
 Thread.new do
