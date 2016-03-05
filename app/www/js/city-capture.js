@@ -8,7 +8,6 @@
       'ngCordova',
 
       'about',
-      'capture-points',
       'games',
       'login',
       'map'
