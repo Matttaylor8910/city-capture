@@ -20,16 +20,17 @@
       };
 
       watchOptions = {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         timeout: 5000,
-        maximumAge: 0
+        maximumAge: 2000,
+        frequency: 1000
       };
 
       map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
       myLoc = new google.maps.Marker({
           clickable: false,
-          icon: new google.maps.MarkerImage('/img/mobileimgs2.png',
+          icon: new google.maps.MarkerImage('img/mobileimgs2.png',
                                                           new google.maps.Size(22,22),
                                                           new google.maps.Point(0,18),
                                                           new google.maps.Point(11,11)),
@@ -48,7 +49,7 @@
       }
 
       function watchSuccess(pos) {
-        myLocation = pos.coords;
+        currentPositionSuccess(pos);
       }
 
       function watchError(err) {
