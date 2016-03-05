@@ -22,7 +22,7 @@
         url: '/game-detail',
         views: {
           menuContent: {
-            templateUrl: 'js/games/games.tpl.html',
+            templateUrl: 'js/games/game-detail.tpl.html',
             controller: 'GameDetailController'
           }
         }

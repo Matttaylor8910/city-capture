@@ -4,10 +4,11 @@
     .module('games')
     .controller('GameDetailController', GameDetailController);
 
-  GameDetailController.$inject = ['$scope', 'GamesService'];
+  GameDetailController.$inject = ['$scope', '$stateParams', 'GamesService'];
 
-  function GameDetailController($scope, GamesService)
+  function GameDetailController($scope, $stateParams, GamesService)
   {
-
+    // $scope.game = $stateParams.game;
+    // console.log(game);
   }
 })();
