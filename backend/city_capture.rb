@@ -197,6 +197,7 @@ end
 # client api
 namespace '/v1' do
   get '/games' do
+    content_type = 'text/json'
     json games
   end
 
