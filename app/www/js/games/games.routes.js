@@ -20,6 +20,9 @@
       .state('app.game-detail',
       {
         url: '/game-detail',
+        params: {
+          'game': ''        
+        },
         views: {
           menuContent: {
             templateUrl: 'js/games/game-detail.tpl.html',

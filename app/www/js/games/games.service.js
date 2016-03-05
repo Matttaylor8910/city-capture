@@ -6,13 +6,21 @@
 
   function GamesService($http)
   {
+    var url = 'http://cc.butthole.tv/v1/';
+
     return {
-    	getGames: getGames
+    	getGames: getGames,
+      joinGame: joinGame
     };
 
     function getGames()
     {
-    	return $http.get('json/games.json');
+    	return $http.get(url + 'games');
+    }
+
+    function joinGame(game)
+    {
+      return $http.post(url + 'games/join', game);
     }
   }
 })();

@@ -12,7 +12,7 @@
 
     function getGames()
     {
-    	return $http.get('mock-json/games.json');
+    	return $http.get('http://cc.butthole.tv/v1/games');
     }
   }
 })();

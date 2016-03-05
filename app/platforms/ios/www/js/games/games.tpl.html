@@ -1,7 +1,7 @@
 <ion-view view-title="Games">
 	<ion-content has-bouncing="true">
 		<ion-list>
-      <ion-item ng-repeat="game in games">
+      <ion-item ng-repeat="game in games" ui-sref="app.game-detail({game: game })">
         <h4 align="right" class="games-time">
           <div class="time-start">{{ game.startMoment.format('h:mm a') }}</div>
           <div class="time-end">{{ game.endMoment.format('h:mm a') }}</div>
@@ -9,11 +9,8 @@
         <div class="games-divider"></div>
         <div class="games-title">
           <h2>{{ game.name }}</h2>
-          <h4>There are {{ game.players.length }} players</h4>
+          <h4>There are {{ players(game) }} players</h4>
         </div>
-        <button class="button button-positive games-join">
-          Join Game
-        </button>
       </ion-item>
     </ion-list>
 	</ion-content>
