@@ -22,8 +22,7 @@
       watchOptions = {
         enableHighAccuracy: true,
         timeout: 5000,
-        maximumAge: 0,
-        desiredAccuracy: 0,
+        maximumAge: 2000,
         frequency: 1000
       };
 
