@@ -1,18 +1,102 @@
 [
-  {
-    "name": "Ferocious Toothbrush",
-    "startTime": 1457272800,
-    "endTime": 1457280000,
-    "players": [ 
-      {}, {}, {} 
-    ]
-  },
-  {
-    "name": "French Toast Mafia",
-    "startTime": 1457372900,
-    "endTime": 1457379000,
-    "players": [ 
-      {}, {}, {}, {}, {}, {} 
-    ]
-  }
+   {
+      "endTime":1457167465,
+      "blueTeam":["Roger", "Matt"],
+      "game":"-KC4vagoq4lvbPbycAVC",
+      "locations":[
+         {
+            "address":"700 W Main St, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.615392,
+            "long":-116.202313,
+            "name":"The Egyptian Theater",
+            "orangeScore":0
+         },
+         {
+            "address":"105 S 6th St, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.614307,
+            "long":-116.201695,
+            "name":"Reef",
+            "orangeScore":0
+         },
+         {
+            "address":"245 S. Capitol Blvd, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.61398,
+            "long":-116.203779,
+            "name":"The Grove Hotel",
+            "orangeScore":0
+         },
+         {
+            "address":"100 E Fort St, Boise, ID 83712",
+            "blueScore":0,
+            "lat":43.614701,
+            "long":-116.191158,
+            "name":"Boise Little Theater",
+            "orangeScore":0
+         },
+         {
+            "address":"219 N 10th St, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.618291,
+            "long":-116.204647,
+            "name":"The District Coffeehouse",
+            "orangeScore":0
+         }
+      ],
+      "name":"Game 616",
+      "orangeTeam":["Conner", "Brik"],
+      "startTime":1457167165
+   },
+   {
+      "endTime":1457167286,
+      "blueTeam":["Brik", "Matt"],
+      "game":"-KC4vpUMCcA46YE_78Sk",
+      "locations":[
+         {
+            "address":"2603 W Eastover Terrace, Boise, ID 83706",
+            "blueScore":0,
+            "lat":43.602091,
+            "long":-116.214728,
+            "name":"Boise Train Depot",
+            "orangeScore":0
+         },
+         {
+            "address":"715 S Capitol Blvd, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.610458,
+            "long":-116.207863,
+            "name":"Boise Public Library",
+            "orangeScore":0
+         },
+         {
+            "address":"830 W Bannock St, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.617894,
+            "long":-116.202815,
+            "name":"10 Barrel Brewing Company",
+            "orangeScore":0
+         },
+         {
+            "address":"700 Robbins Rd, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.616925,
+            "long":-116.190798,
+            "name":"Fort Boise Community Center",
+            "orangeScore":0
+         },
+         {
+            "address":"981 W Grove St, Boise, ID 83702",
+            "blueScore":0,
+            "lat":43.615574,
+            "long":-116.206431,
+            "name":"Hotel 43",
+            "orangeScore":0
+         }
+      ],
+      "name":"Game 633",
+      "orangeTeam":["Conner", "Roger"],
+      "startTime":1457167226
+   }
 ]

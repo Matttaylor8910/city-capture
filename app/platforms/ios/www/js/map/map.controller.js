@@ -22,8 +22,7 @@
       watchOptions = {
         enableHighAccuracy: true,
         timeout: 5000,
-        maximumAge: 2000,
-        frequency: 1000
+        maximumAge: 1000
       };
 
       map = new google.maps.Map(document.getElementById("map"), mapOptions);
