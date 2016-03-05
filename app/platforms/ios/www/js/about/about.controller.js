@@ -4,10 +4,10 @@
     .module('about')
     .controller('AboutController', AboutController);
 
-  AboutController.$inject = [];
+  AboutController.$inject = ['$scope','FAQs'];
 
-  function AboutController()
+  function AboutController($scope, FAQs)
   {
-    
+    $scope.FAQs = FAQs;
   }
 })();

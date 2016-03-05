@@ -1,4 +1,11 @@
 <ion-view view-title="Login">
   <ion-content has-bouncing="true">
+    
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input class="login-field" type="text" placeholder="Username" ng-model="name">
+      </label>
+    </div>
+    <button class="button button-calm login-button" ng-click="login(name)">Done</button>
   </ion-content>
 </ion-view>

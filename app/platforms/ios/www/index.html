@@ -14,13 +14,17 @@
     <!-- CSS -->
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="js/games/games.css" rel="stylesheet">
+    <link href="js/login/login.css" rel="stylesheet">
+    <link href="js/map/map.css" rel="stylesheet">
 
     <!-- libraries -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
     <script src="lib/jquery/jquery-1.11.3.min.js"></script>
     <script src="lib/lodash/lodash.min.js"></script>
+    <script src="lib/moment/moment.js"></script>
 
     <!-- iOS 9 angular bug fix -->
     <script src="lib/angular-ios9-uiwebview.patch.js"></script>    
@@ -28,15 +32,18 @@
     <!-- city capture stuff -->
     <script src="js/city-capture.js"></script>
     <script src="js/menu/menu.routes.js"></script>
+    <script src="js/local-storage/local-storage.js"></script>
 
     <!-- Features -->
     <script src="js/login/login.module.js"></script>
     <script src="js/login/login.routes.js"></script>
+    <script src="js/login/login.service.js"></script>
     <script src="js/login/login.controller.js"></script>
 
     <script src="js/about/about.module.js"></script>
     <script src="js/about/about.routes.js"></script>
     <script src="js/about/about.controller.js"></script>
+    <script src="js/about/about.constant.js"></script>
 
     <script src="js/capture-points/capture-points.module.js"></script>
     <script src="js/capture-points/capture-points.routes.js"></script>
@@ -49,9 +56,10 @@
 
     <script src="js/games/games.module.js"></script>
     <script src="js/games/games.routes.js"></script>
+    <script src="js/games/games.service.js"></script>
     <script src="js/games/games.controller.js"></script>
 
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyB4YzeH3oBEwq4MQJLixNB8ZW3WGIv5x00&sensor=true"></script>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyB4YzeH3oBEwq4MQJLixNB8ZW3WGIv5x00"></script>
     
   </head>
   <body ng-app="city-capture" class="platform-ios platform-cordova platform-webview">
