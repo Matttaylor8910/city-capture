@@ -20,9 +20,11 @@
       };
 
       watchOptions = {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         timeout: 5000,
-        maximumAge: 0
+        maximumAge: 0,
+        desiredAccuracy: 0,
+        frequency: 1000
       };
 
       map = new google.maps.Map(document.getElementById("map"), mapOptions);
