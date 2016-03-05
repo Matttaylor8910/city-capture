@@ -52,15 +52,39 @@ def add_user(name)
 end
 
 # returns a random subset of the locations available
-# each game has a random subset of locations.
+# each game has a random subset of locations
+# this function also adds score values to the objects to ready them for a game
 def random_locations
-  hsh_to_a(firebase.get('locations').body).sample(5)
+  locations = hsh_to_a(firebase.get('locations').body).sample(5)
+  locations.map do |l|
+    l['orangeScore'] = 0
+    l['blueScore'] = 0
+  end
 end
 
 # returns a random name for a game
 # for now, we are boring
 def random_name
   "Game #{rand 1000}"
+end
+
+# returns the distance between two lat/long tuples
+# thanks stackoverflow
+def distance(loc1, loc2)
+  rad_per_deg = Math::PI / 180 # PI / 180
+  rm = 6_371_000 # Radius in meters
+
+  dlat_rad = (loc2[0] - loc1[0]) * rad_per_deg # Delta, converted to rad
+  dlon_rad = (loc2[1] - loc1[1]) * rad_per_deg
+
+  lat1_rad = loc1.map { |i| i * rad_per_deg }
+  lat2_rad = loc2.map { |i| i * rad_per_deg }
+
+  a = Math.sin(dlat_rad / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) *
+                                  Math.sin(dlon_rad / 2)**2
+  c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+  rm * c # Delta in meters
 end
 
 # maintain games
@@ -75,8 +99,6 @@ Thread.new do
                              locations: random_locations,
                              orangeTeam: [],
                              blueTeam: [],
-                             orangeScore: 0,
-                             blueScore: 0,
                              name: random_name)
 
       # start a five minute game
@@ -86,8 +108,6 @@ Thread.new do
                              locations: random_locations,
                              orangeTeam: [],
                              blueTeam: [],
-                             orangeScore: 0,
-                             blueScore: 0,
                              name: random_name)
     end
 
@@ -105,8 +125,6 @@ Thread.new do
                              locations: random_locations,
                              orangeTeam: [],
                              blueTeam: [],
-                             orangeScore: 0,
-                             blueScore: 0,
                              name: random_name)
     end
 
