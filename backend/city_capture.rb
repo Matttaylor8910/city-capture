@@ -110,8 +110,8 @@ def distance(loc1, loc2)
   dlat_rad = (loc2[0] - loc1[0]) * rad_per_deg # Delta, converted to rad
   dlon_rad = (loc2[1] - loc1[1]) * rad_per_deg
 
-  lat1_rad = loc1.map { |i| i * rad_per_deg }
-  lat2_rad = loc2.map { |i| i * rad_per_deg }
+  lat1_rad = loc1[0] * rad_per_deg
+  lat2_rad = loc2[0] * rad_per_deg
 
   a = Math.sin(dlat_rad / 2)**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) *
                                   Math.sin(dlon_rad / 2)**2
@@ -204,9 +204,22 @@ namespace '/v1' do
 
   post '/location' do
     body = JSON.parse request.body.read
+    team = body['team']
+    game = games_raw[body['game']]
+    loc = body['lat'], body['long']
 
-    # Not implemented
-    501
+    game['locations'].each_with_index do |l, idx|
+      dist = distance([l['lat'], l['long']], loc)
+      puts "Distance from #{l['name']}: #{dist}m"
+      # increment score if we are close
+      next unless dist < 15
+      s = firebase.get("games/#{body['game']}/locations/#{idx}/#{team}Score")
+          .body
+      firebase.update("games/#{body['game']}/locations/#{idx}",
+                      "#{team}Score": s + 1)
+    end
+
+    200
   end
 
   post '/users/add/:name' do |name|
