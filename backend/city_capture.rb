@@ -93,9 +93,6 @@ def distance(loc1, loc2)
   rm * c # Delta in meters
 end
 
-# save my butthole
-Thread.abort_on_exception = true
-
 # kill the baby threads in the case that we just reloaded
 Thread.list.each do |thread|
   thread.exit unless thread == Thread.current
