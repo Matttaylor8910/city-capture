@@ -121,6 +121,11 @@ set :port, 4545
 # app
 set :public_folder, '../app/www'
 
+# fucking piece of shit ionic fuck shit fuck
+configure do
+  enable :cross_origin
+end
+
 # redirect to index
 get '/' do
   redirect 'index.html'
@@ -128,7 +133,33 @@ end
 
 # client api
 namespace '/v1' do
+  get '/games' do
+    # Not implemented
+    501
+  end
+
+  post '/location' do
+    body = JSON.parse request.body
+
+    # Not implemented
+    501
+  end
+
   post '/users/add/:name' do |name|
     add_user name
+  end
+
+  post '/games/join' do
+    body = JSON.parse request.body
+
+    # Not implemented
+    501
+  end
+
+  post '/games/leave' do
+    body = JSON.parse request.body
+
+    # Not implemented
+    501
   end
 end
