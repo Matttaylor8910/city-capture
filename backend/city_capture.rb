@@ -52,3 +52,8 @@ def add_user(name)
   200
 end
 
+# returns a random subset of the locations available
+# each game has a random subset of locations.
+def get_locations
+  hsh_to_a(locations).sample(5)
+end 
