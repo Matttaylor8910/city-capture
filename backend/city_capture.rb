@@ -138,16 +138,16 @@ Thread.new do
     if games.empty?
       puts 'games is empty o no'
       # TODO: make this one hour and remove random teams
-      firebase.push('games', startTime: Time.now.to_i,
-                             endTime: Time.now.to_i + 300,
+      firebase.push('games', startTime: Time.now.to_i + 60,
+                             endTime: Time.now.to_i + 300 + 60,
                              locations: random_locations,
                              orangeTeam: random_team,
                              blueTeam: random_team,
                              name: random_name)
 
       # TODO: make this six hours and remove random teams
-      firebase.push('games', startTime: Time.now.to_i,
-                             endTime: Time.now.to_i + 60,
+      firebase.push('games', startTime: Time.now.to_i + 60,
+                             endTime: Time.now.to_i + 60 + 60,
                              locations: random_locations,
                              orangeTeam: random_team,
                              blueTeam: random_team,
