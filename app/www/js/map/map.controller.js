@@ -4,19 +4,15 @@
     .module('map')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['$scope', '$stateParams','$ionicLoading','MapService'];
+  MapController.$inject = ['$scope', '$http', '$stateParams','$ionicLoading','localStorage'];
 
-  function MapController($scope, $stateParams, $ionicLoading, MapService)
+  function MapController($scope, $http, $stateParams, $ionicLoading, localStorage)
   {
-      var myLatlng, myLocation, mapOptions, map, watchOptions, googleInfoWindow;
+      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerGame, playerTeam;
 
-      // var refString = 'https://torrid-fire-239.firebaseio.com/';
-      // var myFirebaseRef = new Firebase('https://torrid-fire-239.firebaseio.com/games/-KC5CrQeDqAztgO6g2kG.json');
-      // myFirebaseRef.child("locations").on("value", function(location) {
-      //   console.log(location);
-      // });
       $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
       initMap();
+      initLocalStorage();
 
       function initMap()
       {
@@ -37,19 +33,24 @@
 
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-        MapService.getLocations().then(
-        function(response)
+        if(playerTeam == 'orange')
         {
-          setLocations(response.data.locations,map);
-        });
-
-        var locationIcon = new google.maps.MarkerImage(
-                "img/blue-dot.png",
-                null, /* size is determined at runtime */
-                null, /* origin is 0,0 */
-                null, /* anchor is bottom center of the scaled image */
-                new google.maps.Size(18, 18)
-            ); 
+          locationIcon = new google.maps.MarkerImage(
+            "img/orange-dot.png",
+            null, /* size is determined at runtime */
+            null, /* origin is 0,0 */
+            null, /* anchor is bottom center of the scaled image */
+            new google.maps.Size(18, 18)
+          ); 
+        }else{
+          locationIcon = new google.maps.MarkerImage(
+            "img/blue-dot.png",
+            null, /* size is determined at runtime */
+            null, /* origin is 0,0 */
+            null, /* anchor is bottom center of the scaled image */
+            new google.maps.Size(18, 18)
+          ); 
+        }
 
         myLocation = new google.maps.Marker({
             clickable: false,
@@ -58,6 +59,7 @@
             zIndex: 999,
             map: map
         });
+
         navigator.geolocation.getCurrentPosition(currentPositionSuccess);
         navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
 
@@ -68,16 +70,26 @@
         map.controls[google.maps.ControlPosition.RIGHT].push(centerControlDiv);
       }
 
+      function initLocalStorage()
+      {
+        playerTeam = localStorage.get('team');
+        playerGame = localStorage.get('game');
+        setLocations(playerGame.locations,map);
+      }
+
       function currentPositionSuccess(pos) 
       {
         myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         map.panTo(myLatlng);
         myLocation.setPosition(myLatlng);
+        postLocation({team: playerTeam, game: playerGame.id, pos.coords.latitude, pos.coords.longitude});
       }
 
       function watchSuccess(pos)
       {
-        currentPositionSuccess(pos);
+        myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        myLocation.setPosition(myLatlng);
+        postLocation({team: playerTeam, game: playerGame.id, pos.coords.latitude, pos.coords.longitude});
       }
 
       function watchError(err) 
@@ -87,16 +99,11 @@
 
       function setLocations(locations, map)
       {
+        var pinIcon, marker;
         _.each(locations, function(location)
         {
-          var pinIcon = new google.maps.MarkerImage(
-              "img/grey-flag.png",
-              null, /* size is determined at runtime */
-              null, /* origin is 0,0 */
-              null, /* anchor is bottom center of the scaled image */
-              new google.maps.Size(20, 24)
-          ); 
-          var marker = new google.maps.Marker({
+          pinIcon = getPinIcon(location);
+          marker = new google.maps.Marker({
             position: new google.maps.LatLng(location.lat, location.long),
             map: map,
             title: location.name,
@@ -111,6 +118,40 @@
             googleInfoWindow.open(map,marker);
           });
         });
+      }
+
+      function getPinIcon(location)
+      {
+        if(location.blueScore > location.orangeScore)
+        {
+          return new google.maps.MarkerImage(
+            "img/blue-flag.png",
+            null, /* size is determined at runtime */
+            null, /* origin is 0,0 */
+            null, /* anchor is bottom center of the scaled image */
+            new google.maps.Size(20, 24)
+          ); 
+        }
+        else if(location.orangeScore > location.blueScore)
+        {
+          return new google.maps.MarkerImage(
+              "img/orange-flag.png",
+              null, /* size is determined at runtime */
+              null, /* origin is 0,0 */
+              null, /* anchor is bottom center of the scaled image */
+              new google.maps.Size(20, 24)
+          ); 
+        }
+        else
+        {
+          return new google.maps.MarkerImage(
+              "img/grey-flag.png",
+              null, /* size is determined at runtime */
+              null, /* origin is 0,0 */
+              null, /* anchor is bottom center of the scaled image */
+              new google.maps.Size(20, 24)
+          ); 
+        }
       }
 
       function CenterMap(controlDiv, map) {
@@ -149,13 +190,25 @@
 
       function getInfoWindowHTML(location)
       {
-        //var maxTeam, maxScore;
-        // if(location.team['orange'].score > location.team['blue'])
-        // {
+        if(location.blueScore > location.orangeScore)
+        {
+          return "<div class='blue-capture'> Blue: " + location.blueScore + "</div>";
+        }
+        else if(location.blueScore < location.orangeScore)
+        {
+          return "<div class='orange-capture'> Orange: " + location.orangeScore + "</div>";
+        }
+        else
+        {
+          return "<div class='none-capture'> Unclaimed </div>";
+        }
+      }
 
-        // }
+      function postLocation(userGame)
+      {
+        var url = 'http://cc.butthole.tv/v1/';
 
-        return content = "<div>" + location.name + "</div><div>" + location.address + "</div>";
+        $http.post(url + 'location', userGame);
       }
   };
 })();
