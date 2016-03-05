@@ -13,8 +13,7 @@
         views: {
           menuContent: {
             templateUrl: 'js/games/games.tpl.html',
-            controller: 'GamesController',
-            controllerAs: 'gamesVM'
+            controller: 'GamesController'
           }
         }
       });
