@@ -13,7 +13,7 @@
         views: {
           menuContent: {
             controller: 'LoginController',
-            templateUrl: 'app/login/login.tpl.html'
+            templateUrl: 'js/login/login.tpl.html'
           }
         }
       });
