@@ -60,6 +60,7 @@ def random_locations
     l['orangeScore'] = 0
     l['blueScore'] = 0
   end
+  locations
 end
 
 # returns a random name for a game
