@@ -11,8 +11,8 @@ require 'sinatra/reloader'
 # returns a firebase object so we don't have to type this fucking url 50
 # million times over the weekend
 def firebase
-  Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
-  # Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
+  # Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
+  Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
 end
 
 # converts a hash to an array where each key is an index
@@ -71,8 +71,21 @@ end
 def random_locations
   locations = hsh_to_a(firebase.get('locations').body).sample(5)
   locations.map do |l|
-    l['orangeScore'] = 0
-    l['blueScore'] = 0
+    # production:
+    # l['orangeScore'] = 0
+    # l['blueScore'] = 0
+    # debug:
+    r = rand
+    if r > 0.6
+      l['orangeScore'] = rand(1000)
+      l['blueScore'] = 0
+    elsif r > 0.3
+      l['orangeScore'] = 0
+      l['blueScore'] = rand(1000)
+    else
+      l['orangeScore'] = 0
+      l['blueScore'] = 0
+    end
   end
   locations
 end
@@ -81,6 +94,11 @@ end
 # for now, we are boring
 def random_name
   "Game #{rand 1000}"
+end
+
+# debug function to generate a list of random fake users
+def random_team
+  Array.new(rand(20)) { "User #{rand(100)}" }
 end
 
 # returns the distance between two lat/long tuples
@@ -122,21 +140,21 @@ Thread.new do
     if games.empty?
       puts 'games is empty o no'
       # start a one minute game
-      # TODO: make this one hour
+      # TODO: make this one hour and remove random teams
       firebase.push('games', startTime: Time.now.to_i,
                              endTime: Time.now.to_i + 60,
                              locations: random_locations,
-                             orangeTeam: [],
-                             blueTeam: [],
+                             orangeTeam: random_team,
+                             blueTeam: random_team,
                              name: random_name)
 
-      # start a five minute game
-      # TODO: make this six hours
+      # start a fifteen minute game
+      # TODO: make this six hours and remove random teams
       firebase.push('games', startTime: Time.now.to_i,
-                             endTime: Time.now.to_i + 300,
+                             endTime: Time.now.to_i + 900,
                              locations: random_locations,
-                             orangeTeam: [],
-                             blueTeam: [],
+                             orangeTeam: random_team,
+                             blueTeam: random_team,
                              name: random_name)
     end
 
@@ -148,13 +166,14 @@ Thread.new do
       # TODO: calc some stats here
       firebase.delete "games/#{g['id']}"
 
-      # create a new game with the same length
+      # create a new game with the same length that will start in one minute
+      # TODO: make this fifteen minutes
       firebase.push('games', endTime: Time.now.to_i +
-                               (g['endTime'] - g['startTime']),
-                             startTime: Time.now.to_i,
+                               (g['endTime'] - g['startTime']) + 60,
+                             startTime: Time.now.to_i + 60,
                              locations: random_locations,
-                             orangeTeam: [],
-                             blueTeam: [],
+                             orangeTeam: random_team,
+                             blueTeam: random_team,
                              name: random_name)
     end
 
