@@ -6,7 +6,6 @@ require 'sinatra'
 require 'sinatra/cross_origin'
 require 'sinatra/json'
 require 'sinatra/namespace'
-require 'sinatra/reloader'
 
 # returns a firebase object so we don't have to type this fucking url 50
 # million times over the weekend
@@ -117,19 +116,6 @@ def distance(loc1, loc2)
 
   rm * c # Delta in meters
 end
-
-# kill the baby threads in the case that we just reloaded
-Thread.list.each do |t|
-  begin
-    puts "killing #{t}"
-    Thread.kill(t) unless t == Thread.current || t == Thread.main
-  rescue SystemExit
-    puts 'bro chill'
-  end
-end
-
-# worth a shot?
-sleep 1
 
 # maintain games
 Thread.new do
