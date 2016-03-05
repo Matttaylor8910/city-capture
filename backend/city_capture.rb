@@ -27,7 +27,14 @@ end
 def games
   raw = games_raw
   return [] if raw.nil?
-  raw.each_key { |k| raw[k]['id'] = k }
+  raw.each_key do |key|
+    # add id with old key
+    raw[key]['id'] = key
+
+    # instantiate teams if they were nil
+    raw[key]['orangeTeam'] ||= []
+    raw[key]['blueTeam'] ||= []
+  end
   hsh_to_a(raw)
 end
 
