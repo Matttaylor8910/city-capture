@@ -1,7 +1,7 @@
 <ion-view view-title="Games">
 	<ion-content has-bouncing="true">
 		<ion-list>
-      <div class="card" ng-repeat="game in games" ui-sref="app.game-detail({game: game })">
+      <div class="card" ng-repeat="game in games" ui-sref="app.game-detail({id: game.id })">
         <ion-item>
           <h4 align="right" class="games-time">
             <div class="time-start">{{ game.startMoment.format('h:mm a') }}</div>

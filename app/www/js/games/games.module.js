@@ -1,4 +1,4 @@
 (function()
 {
-  angular.module('games', []);
+  angular.module('games', ['firebase']);
 })();

@@ -9,7 +9,7 @@
   function GamesController($scope, $interval, GamesService)
   {
     $scope.players = players;
-    
+
     refresh();
     $interval(refresh, 5000);
 

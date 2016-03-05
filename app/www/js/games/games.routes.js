@@ -19,10 +19,7 @@
       })
       .state('app.game-detail',
       {
-        url: '/game-detail',
-        params: {
-          'game': ''        
-        },
+        url: '/game-detail/:id',
         views: {
           menuContent: {
             templateUrl: 'js/games/game-detail.tpl.html',

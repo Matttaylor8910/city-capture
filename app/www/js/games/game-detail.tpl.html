@@ -14,20 +14,20 @@
       <!-- Timer and scores -->
       <div class="space-between">
         <div>
-          <div class="orange-score">17</div>
+          <div class="orange-score">{{ orange }}</div>
           <div class="score-label">Locations</div>
         </div>
-        <div class="time-remaining">01:17:32</div>
+        <div class="time-remaining">{{ duration | seconds }}</div>
         <div>
-          <div class="blue-score">10</div>
+          <div class="blue-score">{{blue}}</div>
           <div class="score-label">Locations</div>
         </div>
       </div>
       <!-- Time and map link -->
       <div class="space-between time-and-map">
         <div>
-          {{ game.startMoment.format('h:mm a') }} - 
-          {{ game.endMoment.format('h:mm a') }}
+          {{ start }} - 
+          {{ end }}
         </div>
         <div ui-sref="app.map" ng-class="{'invisible': toggled}">See Full Map ></div>
       </div>
@@ -37,7 +37,7 @@
     <div class="game-not-started" ng-show="toggled">
       <div class="card">
         <!-- Game countdown -->
-        <div class="item item-divider center">Game starts in 0:37:10</div>
+        <div class="item item-divider center">Game starts in {{ timeTillGame | seconds }}</div>
         <!-- Join buttons -->
         <ion-item class="join-buttons">
           <button class="button button-energized join-button" ng-click="join('orange', game)">
