@@ -1,0 +1,202 @@
+{
+   "locations":[
+      {
+         "name":"Knitting Factory",
+         "address":"416 S 9th Street, Boise, ID 83702",
+         "lat":43.613261,
+         "long":-116.207154
+      },
+      {
+         "name":"CenturyLink Arena",
+         "address":"233 S Capitol Blvd, Boise, ID 83702",
+         "lat":43.614507,
+         "long":-116.204041
+      },
+      {
+         "name":"Boise Art Museum",
+         "address":"670 Julia Davis Dr, Boise, ID 83702",
+         "lat":43.609599,
+         "long":-116.206351
+      },
+      {
+         "name":"The Flicks",
+         "address":"646 W Fulton St, Boise, ID 83702",
+         "lat":43.611192,
+         "long":-116.204869
+      },
+      {
+         "name":"Boise Public Library",
+         "address":"715 S Capitol Blvd, Boise, ID 83702",
+         "lat":43.610458,
+         "long":-116.207863
+      },
+      {
+         "name":"Flying M Coffeehouse",
+         "address":"500 W Idaho St #100, Boise, ID 83702",
+         "lat":43.614861,
+         "long":-116.199267
+      },
+      {
+         "name":"Boise Fry Company/Guru Donuts",
+         "address":"204 N Capitol Blvd, Boise, ID 83702",
+         "lat":43.616048,
+         "long":-116.201085
+      },
+      {
+         "name":"Reef",
+         "address":"105 S 6th St, Boise, ID 83702",
+         "lat":43.614307,
+         "long":-116.201695
+      },
+      {
+         "name":"Bittercreek Ale House",
+         "address":"246 N 8th St, Boise, ID 83702",
+         "lat":43.616599,
+         "long":-116.202229
+      },
+      {
+         "name":"Fork",
+         "address":"199 N 8th St, Boise, ID 83702",
+         "lat":43.616304,
+         "long":-116.203043
+      },
+      {
+         "name":"The Egyptian Theater",
+         "address":"700 W Main St, Boise, ID 83702",
+         "lat":43.615392,
+         "long":-116.202313
+      },
+      {
+         "name":"Hotel 43",
+         "address":"981 W Grove St, Boise, ID 83702",
+         "lat":43.615574,
+         "long":-116.206431
+      },
+      {
+         "name":"The Grove Hotel",
+         "address":"245 S. Capitol Blvd, Boise, ID 83702",
+         "lat":43.613980,
+         "long":-116.203779
+      },
+      {
+         "name":"State Capitol Building",
+         "address":"700 W Jefferson St, Boise, ID 83702",
+         "lat":43.617822,
+         "long":-116.199519
+      },
+      {
+         "name":"10 Barrel Brewing Company",
+         "address":"830 W Bannock St, Boise, ID 83702",
+         "lat":43.617894,
+         "long":-116.202815
+      },
+      {
+         "name":"The Record Exchange",
+         "address":"1105 W Idaho St, Boise, ID 83702",
+         "lat":43.618198,
+         "long":-116.206782
+      },
+      {
+         "name":"The District Coffeehouse",
+         "address":"219 N 10th St, Boise, ID 83702",
+         "lat":43.618291,
+         "long":-116.204647
+      },
+      {
+         "name":"YMCA",
+         "address":"1050 W State St, Boise, ID 83702",
+         "lat":43.620458,
+         "long":-116.202894
+      },
+      {
+         "name":"Boise Co-Op",
+         "address":"888 W Fort St, Boise, ID 83702",
+         "lat":43.622790,
+         "long":-116.198254
+      },
+      {
+         "name":"Fort Boise Community Center",
+         "address":"700 Robbins Rd, Boise, ID 83702",
+         "lat":43.616925,
+         "long":-116.190798
+      },
+      {
+         "name":"Camelsback Park",
+         "address":"Camelsback Park, Boise, ID 83702",
+         "lat":43.636978,
+         "long":-116.200207
+      },
+      {
+         "name":"Boise Little Theater",
+         "address":"100 E Fort St, Boise, ID 83712",
+         "lat":43.614701,
+         "long":-116.191158
+      },
+      {
+         "name":"Java - Hyde Park",
+         "address":"1612 N 13th St, Boise, ID 83702",
+         "lat":43.630673,
+         "long":-116.203086
+      },
+      {
+         "name":"Java - Idaho Street",
+         "address":"223 N 6th St #110, Boise, ID 83702",
+         "lat":43.615502,
+         "long":-116.200353
+      },
+      {
+         "name":"Dawson Taylor Coffeehouse",
+         "address":"219 N 8th St, Boise, ID 83702",
+         "lat":43.617160,
+         "long":-116.20247
+      },
+      {
+         "name":"Julia Davis Park",
+         "address":"700 S Capitol Blvd, Boise, ID 83702",
+         "lat":43.610436,
+         "long":-116.206718
+      },
+      {
+         "name":"Ann Morrison Park",
+         "address":"1000 N Americana Boulevard, Boise, ID 83706",
+         "lat":43.613958,
+         "long":-116.224164
+      },
+      {
+         "name":"Old Idaho Penitentiary",
+         "address":"2445 Old Penitentiary Rd, Boise, ID 83712",
+         "lat":43.602638,
+         "long":-116.162713
+      },
+      {
+         "name":"Anne Frank Human Rights Memorial",
+         "address":"770 S 8th St, Boise, ID 83702",
+         "lat":43.610467,
+         "long":-116.208408
+      },
+      {
+         "name":"Bronco Stadium",
+         "address":"1400 Bronco Ln, Boise, ID 83706",
+         "lat":43.602319,
+         "long":-116.198703
+      },
+      {
+         "name":"Boise Train Depot",
+         "address":"2603 W Eastover Terrace, Boise, ID 83706",
+         "lat":43.602091,
+         "long":-116.214728
+      },
+      {
+         "name":"St. John's Cathedral",
+         "address":"775 N 8th St, Boise, ID 83702",
+         "lat":43.620935,
+         "long":-116.19888
+      },
+      {
+         "name":"Freak Alley",
+         "address":"210 N 9th St, Boise, ID 83702",
+         "lat":43.617320,
+         "long":-116.203332
+      }
+   ]
+}

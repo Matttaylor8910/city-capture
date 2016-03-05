@@ -4,13 +4,15 @@
     .module('map')
     .factory('MapService', MapService);
 
-  function MapService() 
+  function MapService($http)
   {
     return {
-      test: function()
-      {
-        return 'test';
-      }
+      getLocations: getLocations
     };
-  } 
+
+    function getLocations()
+    {
+      return $http.get('mock-json/locations.json');
+    }
+  }
 })();
