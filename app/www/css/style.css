@@ -39,7 +39,7 @@
 ion-content
 {
   background-color: #073DA3;
-  background-image: url('city.png');
+  background-image: url('sunrise.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom center;
@@ -53,4 +53,8 @@ ion-content
 {
   display: flex;
   justify-content: center;
+}
+.item-complex .item-content, .item-radio .item-content
+{
+  padding-right: 16px;
 }

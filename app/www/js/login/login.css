@@ -18,3 +18,12 @@
 	margin-top: 10px;
   height: 30%;
 }
+.welcome > img
+{
+  width: 100%;
+}
+.login-input
+{
+  margin: 32px auto 15px;
+  width: 70%;
+}
