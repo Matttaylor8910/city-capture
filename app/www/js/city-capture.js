@@ -5,7 +5,11 @@
       'ionic',
       'ngIOS9UIWebViewPatch',
 
-      'login'
+      'about',
+      'capture-points',
+      'games',
+      'login',
+      'map'
     ])
 
     // This establishes a few settings for Ionic
