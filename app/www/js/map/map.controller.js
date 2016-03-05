@@ -2,9 +2,9 @@
 {
   angular
     .module('map')
-    .controller('MapController', LoginController);
+    .controller('MapController', MapController);
 
-  LoginController.$inject = [];
+  MapController.$inject = [];
 
   function MapController()
   {

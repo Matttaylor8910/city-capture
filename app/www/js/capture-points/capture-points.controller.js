@@ -2,9 +2,9 @@
 {
   angular
     .module('capture-points')
-    .controller('CapturePointsController', LoginController);
+    .controller('CapturePointsController', CapturePointsController);
 
-  LoginController.$inject = [];
+  CapturePointsController.$inject = [];
 
   function CapturePointsController()
   {
