@@ -33,6 +33,12 @@ def users
   firebase.get 'users'
 end
 
+# returns a list of locations
+def locations
+  firebase = database
+  firebase.get 'locations'
+end 
+
 # adds a user to the database
 def add_user(name)
   firebase = database
@@ -45,3 +51,4 @@ def add_user(name)
   firebase.push('users', name: name)
   200
 end
+
