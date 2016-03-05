@@ -16,6 +16,16 @@
             controller: 'GamesController'
           }
         }
+      })
+      .state('app.game-detail',
+      {
+        url: '/game-detail',
+        views: {
+          menuContent: {
+            templateUrl: 'js/games/games.tpl.html',
+            controller: 'GameDetailController'
+          }
+        }
       });
   }
 })();
