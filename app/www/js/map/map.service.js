@@ -12,7 +12,7 @@
 
     function getLocations()
     {
-      return $http.get('mock-json/locations.json');
+      return $http.get('json/locations.json');
     }
   }
 })();

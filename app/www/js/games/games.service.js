@@ -12,7 +12,7 @@
 
     function getGames()
     {
-    	return $http.get('mock-json/games.json');
+    	return $http.get('json/games.json');
     }
   }
 })();
