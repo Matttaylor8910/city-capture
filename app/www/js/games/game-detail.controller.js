@@ -28,5 +28,7 @@
       }
       GamesService.joinGame(obj);
     }
+
+    
   }
 })();

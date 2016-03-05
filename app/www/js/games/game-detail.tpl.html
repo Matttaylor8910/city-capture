@@ -29,7 +29,7 @@
           {{ game.startMoment.format('h:mm a') }} - 
           {{ game.endMoment.format('h:mm a') }}
         </div>
-        <div ui-sref="app.map">See Full Map ></div>
+        <div ui-sref="app.map" ng-class="{'invisible': toggled}">See Full Map ></div>
       </div>
     </div>
 

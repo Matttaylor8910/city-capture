@@ -7,3 +7,21 @@
   margin: auto;
   display: flex;
 }
+.welcome
+{
+	font-family: moderne;
+	color: white;
+	font-size: 55px;
+	line-height: 85px;
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+.login
+{
+	background-color: #073DA3;
+	background-image: url('/img/city.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom center;
+}

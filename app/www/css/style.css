@@ -1,3 +1,8 @@
+@font-face {
+  font-family: moderne;
+  src: url('/css/font/MODERNE SANS.ttf');
+}
+
 .button
 {
   min-height: 0;
@@ -6,6 +11,10 @@
 .space::before 
 {
 	margin-right: 10px;
+}
+.invisible
+{
+  display: none;
 }
 .ion-ios-help-outline
 {
