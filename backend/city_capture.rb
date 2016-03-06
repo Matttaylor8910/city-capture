@@ -70,21 +70,8 @@ end
 def random_locations
   locations = hsh_to_a(firebase.get('locations').body).sample(5)
   locations.map do |l|
-    # production:
-    # l['orangeScore'] = 0
-    # l['blueScore'] = 0
-    # debug:
-    r = rand
-    if r > 0.6
-      l['orangeScore'] = rand(1000)
-      l['blueScore'] = 0
-    elsif r > 0.3
-      l['orangeScore'] = 0
-      l['blueScore'] = rand(1000)
-    else
-      l['orangeScore'] = 0
-      l['blueScore'] = 0
-    end
+    l['orangeScore'] = 0
+    l['blueScore'] = 0
   end
   locations
 end
@@ -209,13 +196,32 @@ namespace '/v1' do
 
     game['locations'].each_with_index do |l, idx|
       dist = distance([l['lat'], l['long']], loc)
-      puts "Distance from #{l['name']}: #{dist}m"
-      # increment score if we are close
+
       next unless dist < 15
-      s = firebase.get("games/#{body['game']}/locations/#{idx}/#{team}Score")
-          .body
+
+      # increment score if we are close
+      oj = firebase.get("games/#{body['game']}/locations/#{idx}/orangeScore")
+           .body
+      blue = firebase.get("games/#{body['game']}/locations/#{idx}/blueScore")
+             .body
+      if team == 'orange'
+        if blue > oj
+          blue -= 1
+        else
+          oj += 1
+        end
+      else
+        if oj > blue
+          oj -= 1
+        else
+          blue += 1
+        end
+      end
+
       firebase.update("games/#{body['game']}/locations/#{idx}",
-                      "#{team}Score": s + 1)
+                      "#orangeScore": oj)
+      firebase.update("games/#{body['game']}/locations/#{idx}",
+                      "#blueScore": blue)
     end
 
     200
@@ -245,8 +251,10 @@ namespace '/v1' do
     # find the key to remove
     game = games_raw[game]
     return 200 if game.nil?
+    team = game[team]
+    return 200 if team.nil?
 
-    key = game[team].key(name)
+    key = team.key(name)
     firebase.delete "games/#{game}/#{team}/#{key}"
 
     200
