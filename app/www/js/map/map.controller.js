@@ -14,8 +14,6 @@
 
       function initMap()
       {
-        if(!map)
-        {
           mapOptions = {
             center: new google.maps.LatLng(43.604206, -116.204356),
             zoom: 15,
@@ -62,7 +60,6 @@
           });  
           
           navigator.geolocation.getCurrentPosition(currentPositionSuccess, null, posOptions);
-          //navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
 
             var centerControlDiv = document.createElement('div');
             var centerControl = new CenterMap(centerControlDiv, map);
@@ -76,7 +73,6 @@
             $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
             map.panTo($scope.panLocation);
           }
-        }
       }
 
       function initLocalStorage(gameID)
@@ -96,31 +92,20 @@
       {
         if (_.isUndefined(newVal)) 
           return;
-        $scope.playerTeam = localStorage.getObject('gameJoined').team;
-        initMap();
-        if(!$scope.markers)
-          setLocations(newVal.locations,map);
-        if(!$scope.locationInterval)
+        var gameJoined = localStorage.getObject('gameJoined');
+        $scope.playerTeam = gameJoined.game === newVal.$id ? newVal.$id : undefined;
+        if (_.isUndefined(map))
+          initMap();
+        setLocations(newVal.locations,map);
+        // only once, and need to be in game
+        if(!$scope.locationInterval && (_.contains($scope.mapGame.orangeTeam, localStorage.get('name')) || _.contains($scope.mapGame.blueTeam, localStorage.get('name'))))
           $scope.locationInterval = $interval(sendLocation, 5000);
       });
 
       function currentPositionSuccess(pos) 
       {
         $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        //map.panTo(myLatlng);
         $scope.myLocation.setPosition($scope.myLatlng);
-      }
-
-      function watchSuccess(pos)
-      {
-        $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        //$scope.myLocation.setPosition(myLatlng);
-        $scope.playerTeam = localStorage.getObject('gameJoined').team;
-      }
-
-      function watchError(err) 
-      {
-        console.warn('ERROR(' + err.code + '): ' + err.message);
       }
 
       function setLocations(locations, map)
@@ -134,17 +119,21 @@
             position: new google.maps.LatLng(location.lat, location.long),
             map: map,
             title: location.name,
-            icon: pinIcon
+            optimized: false,
+            icon: pinIcon,
+            zIndex: 5
           });
 
-          marker.addListener('click', function()
-          {
-            if($scope.googleInfoWindow)
-              $scope.googleInfoWindow.close();
-            $scope.googleInfoWindow = new google.maps.InfoWindow({ content: getInfoWindowHTML(location) });
-            marker.setPosition(new google.maps.LatLng(location.lat, location.long));
-            $scope.googleInfoWindow.open(map,marker);
-          });
+          // marker.addListener('click', function()
+          // {
+          //   if($scope.googleInfoWindow)
+          //   {
+          //     $scope.googleInfoWindow.close();
+          //   }
+          //   $scope.googleInfoWindow = new google.maps.InfoWindow({ content: getInfoWindowHTML(location) });
+          //   marker.setPosition(new google.maps.LatLng(location.lat, location.long));
+          //   $scope.googleInfoWindow.open(map,marker);
+          // });
 
           $scope.markers.push(marker);
         });
