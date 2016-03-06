@@ -247,6 +247,7 @@ namespace '/v1' do
     name = body['name']
     game = body['game']
     team = body['team'] + 'Team'
+    puts body
 
     # find the key to remove
     game = games_raw[game]
