@@ -10,8 +10,11 @@
           <div class="games-divider"></div>
           <div class="games-title">
             <h2>{{ game.name }}</h2>
-            <h4>There are {{ players(game) }} players</h4>
+            <h4>There are {{ players(game) }} player(s)</h4>
           </div>
+					<div class="game-progress">
+						{{ gameState }}
+					</div>
         </ion-item>
       </div>
     </ion-list>

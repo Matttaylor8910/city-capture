@@ -24,6 +24,15 @@
         {
           game.startMoment = moment.unix(game.startTime);
           game.endMoment= moment.unix(game.endTime);
+
+          var now = moment().valueOf()/1000;
+          $scope.gameState;
+          if (now < game.startTime){
+            $scope.gameState = "Starting Soon";
+          } else {
+            $scope.gameState = "In Progress";
+          }
+
         });
         $scope.$broadcast('scroll.refreshComplete');
       });

@@ -17,6 +17,15 @@
 {
   display: inline-block;
 }
+
+.game-progress
+{
+  float: right;
+  color: #808080;
+  font-style: italic;
+  margin-top: 9px;
+  font-size: 13px;
+}
 .time-end
 {
   color: #7F7F7F;
@@ -101,6 +110,6 @@
 }
 .user-list
 {
-  width: 50%; 
+  width: 50%;
   text-align: center;
 }
