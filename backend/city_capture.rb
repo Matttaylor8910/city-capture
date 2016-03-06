@@ -255,7 +255,7 @@ namespace '/v1' do
     return 200 if team.nil?
 
     key = team.key(name)
-    firebase.delete "games/#{game}/#{team}/#{key}"
+    firebase.delete "games/#{body['game']}/#{team}/#{key}"
 
     200
   end

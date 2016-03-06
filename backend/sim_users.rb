@@ -86,7 +86,7 @@ n.times do |idx|
             http.request(req)
           end
 
-          sleep 1
+          sleep 5
         end
         puts "#{idx}: Game #{game['id']} ended"
       else
