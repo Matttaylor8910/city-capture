@@ -4,7 +4,7 @@
 		.module('games')
 		.factory('GamesService', GamesService);
 
-  function GamesService($http)
+  function GamesService($http, localStorage)
   {
     var url = 'http://cc.butthole.tv/v1/';
 
@@ -26,18 +26,18 @@
      */
     function joinGame(obj)
     {
+      // if there is a game stored, we need to request to remove it
+      if (!_.isUndefined(localStorage.getObject('gameJoined')) && !_.isUndefined(localStorage.getObject('gameJoined').game))
+      {
+        leaveGame(localStorage.getObject('gameJoined'));
+      }
+      localStorage.setObject('gameJoined', obj);
       return $http.post(url + 'games/join', obj);
     }
 
     function leaveGame(obj)
     {
-      localStorage.setObject('gameJoined', obj);
-    }
-
-    function inGame(gameID, color)
-    {
-      var gameJoined = localStorage.getObject('gameJoined');
-      return gameJoined.game === gameID && color === color;
+      return $http.post(url + 'games/leave', obj);
     }
   }
 })();

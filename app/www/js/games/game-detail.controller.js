@@ -23,7 +23,6 @@
         team: color
       };
       GamesService.joinGame(obj);
-      localStorage.setObject('gameJoined', obj);
     }
 
     function bindGames(gameID)

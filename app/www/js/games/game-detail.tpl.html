@@ -32,18 +32,22 @@
         <div class="item item-divider center">Game starts in {{ timeTillGame | seconds }}</div>
         <!-- Join buttons -->
         <ion-item class="join-buttons">
-          <button class="button button-energized join-button" ng-click="join('orange', game)">
+          <button 
+            class="button button-energized join-button"
+            ng-click="join('orange', game)">
             <div class="join-text">Join</div>
           </button>
-          <button class="button button-positive join-button" ng-click="join('blue', game)">
+          <button 
+            class="button button-positive join-button"
+            ng-click="join('blue', game)">
             <div class="join-text">Join</div>
           </button>
         </ion-item>
         <!-- # users -->
-        <ion-item class="space-around" ng-show="joined.length > 0">
+        <!-- <ion-item class="space-around" ng-show="joined.length > 0">
           <div class="user-list"><strong>{{ game.orangeTeam.length }} players</strong></div>
           <div class="user-list"><strong>{{ game.blueTeam.length }} players</strong></div>
-        </ion-item>
+        </ion-item> -->
         <!-- User List -->
         <ion-item class="space-around" ng-repeat="line in joined">
           <div class="user-list">{{ line.orange }}</div>
