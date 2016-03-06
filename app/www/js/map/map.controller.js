@@ -25,13 +25,16 @@
           zoomControl: true
         };
 
-        watchOptions = {
+        posOptions = {
           enableHighAccuracy: true,
           timeout: 4000,
           maximumAge: 1000
         };
 
-        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        if(!map)
+        {
+          map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        }
 
         if($scope.playerTeam == 'orange')
         {
@@ -60,7 +63,7 @@
             map: map
         });
 
-        navigator.geolocation.getCurrentPosition(currentPositionSuccess);
+        navigator.geolocation.getCurrentPosition(currentPositionSuccess, null, posOptions);
         //navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
 
         var centerControlDiv = document.createElement('div');
@@ -92,27 +95,24 @@
       {
         if (_.isUndefined(newVal)) 
           return;
-        if($scope.firstRun)
-        {
-          $scope.playerTeam = localStorage.getObject('gameJoined').team;
-          initMap();
-          setLocations(newVal.locations,map);
-          //clearInterval(sendLocation);
-          $interval(sendLocation, 5000);
-        }
+        $scope.playerTeam = localStorage.getObject('gameJoined').team;
+        initMap();
+        setLocations(newVal.locations,map);
+        //clearInterval(sendLocation);
+        $interval(sendLocation, 5000);
       });
 
       function currentPositionSuccess(pos) 
       {
         $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         //map.panTo(myLatlng);
-        $scope.myLocation.setPosition(myLatlng);
+        $scope.myLocation.setPosition($scope.myLatlng);
       }
 
       function watchSuccess(pos)
       {
         $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        $scope.myLocation.setPosition(myLatlng);
+        //$scope.myLocation.setPosition(myLatlng);
         $scope.playerTeam = localStorage.getObject('gameJoined').team;
       }
 
