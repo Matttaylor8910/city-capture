@@ -10,8 +10,8 @@ require 'sinatra/namespace'
 # returns a firebase object so we don't have to type this fucking url 50
 # million times over the weekend
 def firebase
-  # Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
-  Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
+  Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
+  # Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
 end
 
 # converts a hash to an array where each key is an index
