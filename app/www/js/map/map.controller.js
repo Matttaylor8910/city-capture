@@ -8,7 +8,7 @@
 
   function MapController($scope, $http, $stateParams, $firebase, $ionicLoading, localStorage)
   {
-      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerTeam;
+      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerTeam, markers;
 
       //$scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
       initLocalStorage($stateParams.gameID);
@@ -25,7 +25,7 @@
         };
 
         watchOptions = {
-          enableHighAccuracy: false,
+          enableHighAccuracy: true,
           timeout: 4000,
           maximumAge: 1000
         };
@@ -88,12 +88,14 @@
           return;
         initMap();
         setLocations(newVal.locations,map);
+        clearInterval(sendLocation);
+        setInterval(sendLocation, 5000);
       });
 
       function currentPositionSuccess(pos) 
       {
         myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        map.panTo(myLatlng);
+        //map.panTo(myLatlng);
         myLocation.setPosition(myLatlng);
       }
 
@@ -114,6 +116,7 @@
       function setLocations(locations, map)
       {
         var pinIcon, marker;
+        clearLocations();
         _.each(locations, function(location)
         {
           pinIcon = getPinIcon(location);
@@ -124,6 +127,8 @@
             icon: pinIcon
           });
 
+          markers.push(marker);
+
           marker.addListener('click', function()
           {
             if(googleInfoWindow)
@@ -132,6 +137,16 @@
             googleInfoWindow.open(map,marker);
           });
         });
+      }
+
+      function clearLocations()
+      {
+        var i;
+        for(i = 0; i<markers.length; i++)
+        {
+          markers[i].setMap(null);
+        }
+        markers = [];
       }
 
       function getPinIcon(location)
@@ -216,6 +231,12 @@
         {
           return "<div class='none-capture'> Unclaimed </div>";
         }
+      }
+
+      function sendLocation()
+      {
+        playerTeam = localStorage.getObject('gameJoined')
+        postLocation({team: playerTeam, game: $scope.mapGame.$id, lat: myLatlng.lat(), long: myLatlng.long()});
       }
 
       function postLocation(userGame)
