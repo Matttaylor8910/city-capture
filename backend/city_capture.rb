@@ -128,9 +128,8 @@ Thread.new do
     # check if any games are present; if there aren't, we probably just started
     if games.empty?
       puts 'games is empty o no'
-      [60, 300, 900, 3600].each do |t|
-        # start in one minute
-        create_game(Time.now.to_i + 60, Time.now.to_i + t + 60)
+      [60, 3600, 21600].each do |t|
+        create_game(Time.now.to_i + 300, Time.now.to_i + t + 300)
       end
     end
 
@@ -146,8 +145,8 @@ Thread.new do
       firebase.delete "games/#{g['id']}"
 
       # TODO: make this fifteen minutes between games
-      create_game(Time.now.to_i + 60, Time.now.to_i +
-                              (g['endTime'] - g['startTime']) + 60)
+      create_game(Time.now.to_i + 300, Time.now.to_i +
+                              (g['endTime'] - g['startTime']) + 300)
     end
 
     # protect the cpu
