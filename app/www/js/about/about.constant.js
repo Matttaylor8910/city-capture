@@ -9,7 +9,7 @@
       },
       {
         question: 'How do I capture flags?',
-        answer: 'First, locate a flag on the map that you want to capture and start moving towards it. Once you are within 10 meters of the flag, you will automatically begin capturing it as long as you have your mobile device with you and the app running.'
+        answer: 'First, locate a flag on the map that you want to capture and start moving towards it. Once you are within 15 meters of the flag, you will automatically begin capturing it as long as you have your mobile device with you and the app running.'
       },
       {
         question: 'What if the other team has already captured a flag?',
