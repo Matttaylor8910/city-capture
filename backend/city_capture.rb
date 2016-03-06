@@ -10,8 +10,8 @@ require 'sinatra/namespace'
 # returns a firebase object so we don't have to type this fucking url 50
 # million times over the weekend
 def firebase
-  Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
-  # Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
+  # Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
+  Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
 end
 
 # converts a hash to an array where each key is an index
@@ -67,8 +67,8 @@ end
 # returns a random subset of the locations available
 # each game has a random subset of locations
 # this function also adds score values to the objects to ready them for a game
-def random_locations
-  locations = hsh_to_a(firebase.get('locations').body).sample(5)
+def random_locations(n = 5)
+  locations = hsh_to_a(firebase.get('locations').body).sample(n)
   locations.map do |l|
     l['orangeScore'] = 0
     l['blueScore'] = 0
@@ -106,36 +106,33 @@ def distance(loc1, loc2)
   rm * c # Delta in meters
 end
 
+def create_game(startTime, endTime, locations = 5)
+  firebase.push('games', startTime: startTime,
+                         endTime: endTime,
+                         locations: random_locations(locations),
+                         orangeTeam: [],
+                         blueTeam: [],
+                         name: random_name)
+end
+
 # maintain games
 Thread.new do
   loop do
     # check if any games are present; if there aren't, we probably just started
     if games.empty?
       puts 'games is empty o no'
-      # TODO: make this one hour and remove random teams
-      firebase.push('games', startTime: Time.now.to_i + 60,
-                             endTime: Time.now.to_i + 300 + 60,
-                             locations: random_locations,
-                             orangeTeam: [],
-                             blueTeam: [],
-                             name: random_name)
-
-      # TODO: make this six hours and remove random teams
-      firebase.push('games', startTime: Time.now.to_i + 3600,
-                             endTime: Time.now.to_i + 3600 + 60,
-                             locations: random_locations,
-                             orangeTeam: [],
-                             blueTeam: [],
-                             name: random_name)
+      [60, 300, 900, 3600].each do |t|
+        # start in one minute
+        create_game(Time.now.to_i + 60, Time.now.to_i + t + 60)
+      end
     end
 
     # end games that are over
     ended = games.select { |g| Time.now.to_i > g['endTime'] }
     ended.each do |g|
       puts "removing #{g['id']}"
-      # remove the game from the db
-      # TODO: calc some stats here
-      firebase.delete "games/#{g['id']}"
+      # remove the game from the db if it's been over for 5 minutes
+      firebase.delete "games/#{g['id']}" if Time.now.to_i - g['endTime'] > 300
 
       # TODO: make this fifteen minutes between games
       firebase.push('games', endTime: Time.now.to_i +
