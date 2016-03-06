@@ -134,8 +134,8 @@ Thread.new do
                              name: random_name)
 
       # TODO: make this six hours and remove random teams
-      firebase.push('games', startTime: Time.now.to_i + 60,
-                             endTime: Time.now.to_i + 60 + 60,
+      firebase.push('games', startTime: Time.now.to_i + 3600,
+                             endTime: Time.now.to_i + 3600 + 60,
                              locations: random_locations,
                              orangeTeam: [],
                              blueTeam: [],
