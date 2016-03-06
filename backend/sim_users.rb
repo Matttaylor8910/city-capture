@@ -9,13 +9,15 @@ require 'net/http'
 n = ARGV[0].to_i
 threads = []
 
+names = File.readlines('user_names').sample(n).map!(&:chomp)
+
 # auto flush
 STDOUT.sync = true
 
 n.times do |idx|
   threads << Thread.new do
-    name = "User_#{idx}"
-    puts "#{idx}: Creating user"
+    name = names[idx]
+    puts "#{idx}: Creating user #{name}"
 
     # add user
     uri = URI "http://cc.butthole.tv/v1/users/add/#{name}"
