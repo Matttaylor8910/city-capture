@@ -128,20 +128,15 @@ Thread.new do
     end
 
     # end games that are over
-    ended = games.select { |g| Time.now.to_i > g['endTime'] }
+    ended = games.select { |g| Time.now.to_i - g['endTime'] > 300 }
     ended.each do |g|
       puts "removing #{g['id']}"
       # remove the game from the db if it's been over for 5 minutes
-      firebase.delete "games/#{g['id']}" if Time.now.to_i - g['endTime'] > 300
+      firebase.delete "games/#{g['id']}"
 
       # TODO: make this fifteen minutes between games
-      firebase.push('games', endTime: Time.now.to_i +
-                               (g['endTime'] - g['startTime']) + 60,
-                             startTime: Time.now.to_i + 60,
-                             locations: random_locations,
-                             orangeTeam: [],
-                             blueTeam: [],
-                             name: random_name)
+      create_game(Time.now.to_i + 60, Time.now.to_i +
+                               (g['endTime'] - g['startTime']) + 60)
     end
 
     # protect the cpu
