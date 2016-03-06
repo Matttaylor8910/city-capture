@@ -18,9 +18,26 @@
     	return $http.get(url + 'games');
     }
 
-    function joinGame(game)
+    /**
+     * obj has the following properties
+     *  name: name of the player
+     *  game: game id of the game joined
+     *  team: the color of the team joined, 'blue' or 'orange'
+     */
+    function joinGame(obj)
     {
-      return $http.post(url + 'games/join', game);
+      return $http.post(url + 'games/join', obj);
+    }
+
+    function leaveGame(obj)
+    {
+      localStorage.setObject('gameJoined', obj);
+    }
+
+    function inGame(gameID, color)
+    {
+      var gameJoined = localStorage.getObject('gameJoined');
+      return gameJoined.game === gameID && color === color;
     }
   }
 })();

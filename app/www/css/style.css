@@ -1,16 +1,16 @@
-@font-face {
-  font-family: moderne;
-  src: url('font/MODERNE SANS.ttf');
-}
-
 .button
 {
   min-height: 0;
   line-height: 30px;
 }
-.space::before 
+.card
 {
-	margin-right: 10px;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.7);
+}
+.center
+{
+  display: flex;
+  justify-content: center;
 }
 .invisible
 {
@@ -25,17 +25,20 @@
   padding-right: 4px;
   padding-left: 2px;
 }
-.space-between
-{
-  display: flex;
-  justify-content: space-between;
-}
 .space-around
 {
   display: flex;
   justify-content: space-around;
 }
-
+.space::before 
+{
+  margin-right: 10px;
+}
+.space-between
+{
+  display: flex;
+  justify-content: space-between;
+}
 ion-content
 {
   background-color: #073DA3;
@@ -44,16 +47,7 @@ ion-content
   background-size: contain;
   background-position: bottom center;
   background-size: 100% 80%;
-}
-
-.card
-{
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.7);
-}
-.center
-{
-  display: flex;
-  justify-content: center;
+  margin-bottom: 40px;
 }
 .item-complex .item-content, .item-radio .item-content
 {

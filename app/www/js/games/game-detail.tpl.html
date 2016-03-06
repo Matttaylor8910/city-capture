@@ -7,12 +7,12 @@
       <div class="space-between">
         <div>
           <div class="orange-score">{{ orange }}</div>
-          <div class="score-label">Locations</div>
+          <div class="score-label">Flag<span ng-show="orange != 1">s</span></div>
         </div>
         <div class="time-remaining">{{ duration | seconds }}</div>
         <div>
           <div class="blue-score">{{blue}}</div>
-          <div class="score-label">Locations</div>
+          <div class="score-label">Flag<span ng-show="blue != 1">s</span></div>
         </div>
       </div>
       <!-- Time and map link -->

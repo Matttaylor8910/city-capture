@@ -23,8 +23,7 @@
         team: color
       };
       GamesService.joinGame(obj);
-      localStorage.setObject('game', game);
-      localStorage.setObject('team', color);
+      localStorage.setObject('gameJoined', obj);
     }
 
     function bindGames(gameID)
@@ -54,7 +53,6 @@
           $state.go('app.games');
         }
         var orange = 0, blue = 0;
-
         _.each(newVal.locations, function(location)
         {
           if (location.blueScore > 0)
@@ -92,12 +90,17 @@
       }
     }
 
-    function joinTeamArrays(orange, blue)
+    function joinTeamArrays(orangeTeam, blueTeam)
     {
       var i = 0;
       var joined = [];
-      orange = orange || [];
-      blue = blue || [];
+      orange = [];
+      blue = [];
+
+      // fix up weird firebase shit
+      _.each(orangeTeam, function(name){ orange.push(name) });
+      _.each(blueTeam, function(name){ blue.push(name) });
+
       // while at least one ofg them is not undefined
       while (!_.isUndefined(orange[i]) || !_.isUndefined(blue[i]))
       {
