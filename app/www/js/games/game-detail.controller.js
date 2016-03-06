@@ -41,9 +41,6 @@
         });
     }
 
-    /**
-     * This shit makes firebase pretty
-     */
     $scope.$watch('game', function(newVal)
       {
         if (_.isUndefined(newVal)) return;
@@ -118,7 +115,6 @@
       $scope.orangeList = [];
       $scope.blueList = [];
 
-      // fix up weird firebase shit
       _.each(orangeTeam, function(name){ $scope.orangeList.push(name) });
       _.each(blueTeam, function(name){ $scope.blueList.push(name) });
 
