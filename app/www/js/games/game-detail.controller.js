@@ -13,8 +13,7 @@
     $scope.join = join;
 
     // Update timers every second
-    // $interval(updateTimers, 1000);
-    $scope.state = 'join';
+    $interval(updateTimers, 1000);
 
     function join(color, game)
     {
