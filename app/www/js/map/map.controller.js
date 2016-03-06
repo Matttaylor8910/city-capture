@@ -82,14 +82,14 @@
         myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         map.panTo(myLatlng);
         myLocation.setPosition(myLatlng);
-        postLocation({team: playerTeam, game: playerGame.id, pos.coords.latitude, pos.coords.longitude});
+        postLocation({team: playerTeam, game: playerGame.id, lat: pos.coords.latitude, long: pos.coords.longitude});
       }
 
       function watchSuccess(pos)
       {
         myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         myLocation.setPosition(myLatlng);
-        postLocation({team: playerTeam, game: playerGame.id, pos.coords.latitude, pos.coords.longitude});
+        postLocation({team: playerTeam, game: playerGame.id, lat: pos.coords.latitude, long: pos.coords.longitude});
       }
 
       function watchError(err) 
