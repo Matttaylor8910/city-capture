@@ -93,20 +93,20 @@
     {
       var i = 0;
       var joined = [];
-      orange = [];
-      blue = [];
+      $scope.orangeList = [];
+      $scope.blueList = [];
 
       // fix up weird firebase shit
-      _.each(orangeTeam, function(name){ orange.push(name) });
-      _.each(blueTeam, function(name){ blue.push(name) });
+      _.each(orangeTeam, function(name){ $scope.orangeList.push(name) });
+      _.each(blueTeam, function(name){ $scope.blueList.push(name) });
 
       // while at least one ofg them is not undefined
-      while (!_.isUndefined(orange[i]) || !_.isUndefined(blue[i]))
+      while (!_.isUndefined($scope.orangeList[i]) || !_.isUndefined($scope.blueList[i]))
       {
         joined.push(
         {
-          orange: _.isUndefined(orange[i]) ? "" : orange[i],
-          blue: _.isUndefined(blue[i]) ? "" : blue[i]
+          orange: _.isUndefined($scope.orangeList[i]) ? "" : $scope.orangeList[i],
+          blue: _.isUndefined($scope.blueList[i]) ? "" : $scope.blueList[i]
         })
         i++;
       }
