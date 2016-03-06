@@ -33,6 +33,10 @@ n.times do |idx|
 
       # pick a random game to join
       game = games.sample
+      if game.nil?
+        sleep 5
+        next
+      end
       team = rand > 0.5 ? 'orange' : 'blue'
       puts "#{idx}: Joining game #{game['id']}"
       uri = URI 'http://cc.butthole.tv/v1/games/join'
