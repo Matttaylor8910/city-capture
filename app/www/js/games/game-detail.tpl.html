@@ -23,7 +23,7 @@
         <div>
           {{ start }} - {{ end }}
         </div>
-        <div ui-sref="app.map({gameID: game.$id })" ng-class="{'invisible': state === 'join'}">See Full Map ></div>
+        <div ui-sref="app.map({gameID: game.$id, lat: '', long: '' })" ng-class="{'invisible': state === 'join'}">See Full Map ></div>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
         <div class="item item-divider">
           Flags
         </div>
-        <ion-item ng-repeat="location in game.locations" ui-sref="app.map({gameID: game.$id })">
+        <ion-item ng-repeat="location in game.locations" ui-sref="app.map({gameID: game.$id, lat: location.lat, long: location.long  })">
           <div class="space-between">
             <h2 class="inline-block">{{ location.name }}</h2>
             <h2 class="inline-block orange-text" ng-show="location.orangeScore > 0">{{ location.orangeScore }} points</h2>

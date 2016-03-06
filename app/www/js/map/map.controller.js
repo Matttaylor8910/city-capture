@@ -4,13 +4,14 @@
     .module('map')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['$scope', '$http', '$stateParams','$firebase','$ionicLoading','localStorage'];
+  MapController.$inject = ['$scope', '$http', '$stateParams','$firebase','$interval','$ionicLoading','localStorage'];
 
-  function MapController($scope, $http, $stateParams, $firebase, $ionicLoading, localStorage)
+  function MapController($scope, $http, $stateParams, $firebase, $interval, $ionicLoading, localStorage)
   {
-      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerTeam, markers;
+      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerTeam;
+      $scope.firstRun = true;
+      $scope.markers = [];
 
-      //$scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
       initLocalStorage($stateParams.gameID);
 
       function initMap()
@@ -32,7 +33,7 @@
 
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-        if(playerTeam == 'orange')
+        if($scope.playerTeam == 'orange')
         {
           locationIcon = new google.maps.MarkerImage(
             "img/orange-dot.png",
@@ -51,7 +52,7 @@
           ); 
         }
 
-        myLocation = new google.maps.Marker({
+        $scope.myLocation = new google.maps.Marker({
             clickable: false,
             icon: locationIcon,
             shadow: null,
@@ -67,6 +68,11 @@
 
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.RIGHT].push(centerControlDiv);
+        if($stateParams.lat !== '')
+        {
+          $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
+          map.panTo($scope.panLocation);
+        }
       }
 
       function initLocalStorage(gameID)
@@ -86,26 +92,28 @@
       {
         if (_.isUndefined(newVal)) 
           return;
-        initMap();
-        setLocations(newVal.locations,map);
-        clearInterval(sendLocation);
-        setInterval(sendLocation, 5000);
+        if($scope.firstRun)
+        {
+          $scope.playerTeam = localStorage.getObject('gameJoined').team;
+          initMap();
+          setLocations(newVal.locations,map);
+          //clearInterval(sendLocation);
+          $interval(sendLocation, 5000);
+        }
       });
 
       function currentPositionSuccess(pos) 
       {
-        myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         //map.panTo(myLatlng);
-        myLocation.setPosition(myLatlng);
+        $scope.myLocation.setPosition(myLatlng);
       }
 
       function watchSuccess(pos)
       {
-        myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-        myLocation.setPosition(myLatlng);
-        playerTeam = localStorage.getObject('gameJoined').team;
-        if(playerTeam !== 'orange' || playerTeam !== 'blue')
-          postLocation({team: playerTeam, game: $scope.mapGame.$id, lat: pos.coords.latitude, long: pos.coords.longitude});
+        $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        $scope.myLocation.setPosition(myLatlng);
+        $scope.playerTeam = localStorage.getObject('gameJoined').team;
       }
 
       function watchError(err) 
@@ -127,26 +135,27 @@
             icon: pinIcon
           });
 
-          markers.push(marker);
-
           marker.addListener('click', function()
           {
-            if(googleInfoWindow)
-              googleInfoWindow.close();
-            googleInfoWindow = new google.maps.InfoWindow({ content: getInfoWindowHTML(location) });
-            googleInfoWindow.open(map,marker);
+            if($scope.googleInfoWindow)
+              $scope.googleInfoWindow.close();
+            $scope.googleInfoWindow = new google.maps.InfoWindow({ content: getInfoWindowHTML(location) });
+            marker.setPosition(new google.maps.LatLng(location.lat, location.long));
+            $scope.googleInfoWindow.open(map,marker);
           });
+
+          $scope.markers.push(marker);
         });
       }
 
       function clearLocations()
       {
         var i;
-        for(i = 0; i<markers.length; i++)
+        for(i = 0; i<$scope.markers.length; i++)
         {
-          markers[i].setMap(null);
+          $scope.markers[i].setMap(null);
         }
-        markers = [];
+        $scope.markers = [];
       }
 
       function getPinIcon(location)
@@ -213,7 +222,7 @@
 
         // Setup the click event listeners: simply set the map to Chicago.
         controlUI.addEventListener('click', function() {
-          map.panTo(myLatlng);
+          map.panTo($scope.myLatlng);
         });
       }
 
@@ -221,23 +230,22 @@
       {
         if(location.blueScore > location.orangeScore)
         {
-          return "<div class='blue-capture'> Blue: " + location.blueScore + "</div>";
+          return "<div>" + location.name + "</div><div class='blue-capture'> Blue: " + location.blueScore + "</div>";
         }
         else if(location.blueScore < location.orangeScore)
         {
-          return "<div class='orange-capture'> Orange: " + location.orangeScore + "</div>";
+          return "<div>" + location.name + "</div><div class='orange-capture'> Orange: " + location.orangeScore + "</div>";
         }
         else
         {
-          return "<div class='none-capture'> Unclaimed </div>";
+          return "<div>" + location.name + "</div><div class='none-capture'> Unclaimed </div>";
         }
       }
 
       function sendLocation()
       {
         navigator.geolocation.getCurrentPosition(currentPositionSuccess);
-        playerTeam = localStorage.getObject('gameJoined')
-        postLocation({team: playerTeam, game: $scope.mapGame.$id, lat: myLatlng.lat(), long: myLatlng.long()});
+        postLocation({team: $scope.playerTeam, game: $scope.mapGame.$id, lat: $scope.myLatlng.lat(), long: $scope.myLatlng.lng() });
       }
 
       function postLocation(userGame)
