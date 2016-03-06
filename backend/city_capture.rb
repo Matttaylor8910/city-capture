@@ -203,6 +203,7 @@ namespace '/v1' do
     team = body['team']
     game = games_raw[body['game']]
     loc = body['lat'], body['long']
+    puts body
 
     game['locations'].each_with_index do |l, idx|
       dist = distance([l['lat'], l['long']], loc)
