@@ -12,7 +12,7 @@
     $scope.getGameState = getGameState;
 
     refresh();
-    $interval(refresh, 5000);
+    $interval(refresh, 1000);
 
     // Get games from database
     function refresh()
