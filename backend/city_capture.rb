@@ -252,8 +252,6 @@ namespace '/v1' do
     # find the key to remove
     game = games_raw[game]
     return 200 if game.nil?
-    team = game[team]
-    return 200 if team.nil?
 
     key = team.key(name)
     firebase.delete "games/#{body['game']}/#{team}/#{key}"
