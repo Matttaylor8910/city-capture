@@ -13,7 +13,8 @@
     $scope.join = join;
 
     // Update timers every second
-    $interval(updateTimers, 1000);
+    // $interval(updateTimers, 1000);
+    $scope.state = 'join';
 
     function join(color, game)
     {
@@ -73,6 +74,7 @@
         $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
         $scope.blue = blue;
         $scope.orange = orange;
+        $scope.joined = joinTeamArrays(newVal.orangeTeam, newVal.blueTeam);
       });
 
     function updateTimers()
@@ -89,6 +91,23 @@
         $scope.timeTillGame--;
         $scope.state = 'join';
       }
+    }
+
+    function joinTeamArrays(orange, blue)
+    {
+      var i = 0;
+      var joined = [];
+      // while at least one ofg them is not undefined
+      while (!_.isUndefined(orange[i]) || !_.isUndefined(blue[i]))
+      {
+        joined.push(
+        {
+          orange: _.isUndefined(orange[i]) ? "" : orange[i],
+          blue: _.isUndefined(blue[i]) ? "" : blue[i]
+        })
+        i++;
+      }
+      return joined;
     }
   }
 })();

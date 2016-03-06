@@ -21,7 +21,7 @@
           {{ start }} - 
           {{ end }}
         </div>
-        <div ui-sref="app.map" ng-class="{'invisible': !inProgress}">See Full Map ></div>
+        <div ui-sref="app.map" ng-class="{'invisible': state === 'join'}">See Full Map ></div>
       </div>
     </div>
 
@@ -33,25 +33,21 @@
         <!-- Join buttons -->
         <ion-item class="join-buttons">
           <button class="button button-energized join-button" ng-click="join('orange', game)">
-            <div class="join-text">Join</div> 
-            <!-- <div>Orange Team</div> -->
+            <div class="join-text">Join</div>
           </button>
           <button class="button button-positive join-button" ng-click="join('blue', game)">
-            <div class="join-text">Join</div> 
-            <!-- <div>Blue Team</div> -->
+            <div class="join-text">Join</div>
           </button>
         </ion-item>
-        <ion-item class="space-around">
-          <div>Matt</div>
-          <div>Conner</div>
+        <!-- # users -->
+        <ion-item class="space-around" ng-show="game">
+          <div class="user-list"><strong>{{ game.orangeTeam.length }} players</strong></div>
+          <div class="user-list"><strong>{{ game.blueTeam.length }} players</strong></div>
         </ion-item>
-        <ion-item class="space-around">
-          <div>Brik</div>
-          <div>Bunny</div>
-        </ion-item>
-        <ion-item class="space-around">
-          <div>Josh</div>
-          <div>Roger</div>
+        <!-- User List -->
+        <ion-item class="space-around" ng-repeat="line in joined">
+          <div class="user-list">{{ line.orange }}</div>
+          <div class="user-list">{{ line.blue }}</div>
         </ion-item>
       </div>
     </div>
