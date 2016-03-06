@@ -96,6 +96,8 @@
     {
       var i = 0;
       var joined = [];
+      orange = orange || [];
+      blue = blue || [];
       // while at least one ofg them is not undefined
       while (!_.isUndefined(orange[i]) || !_.isUndefined(blue[i]))
       {

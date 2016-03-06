@@ -40,7 +40,7 @@
           </button>
         </ion-item>
         <!-- # users -->
-        <ion-item class="space-around" ng-show="game">
+        <ion-item class="space-around" ng-show="joined.length > 0">
           <div class="user-list"><strong>{{ game.orangeTeam.length }} players</strong></div>
           <div class="user-list"><strong>{{ game.blueTeam.length }} players</strong></div>
         </ion-item>
@@ -48,7 +48,7 @@
         <ion-item class="space-around" ng-repeat="line in joined">
           <div class="user-list">{{ line.orange }}</div>
           <div class="user-list">{{ line.blue }}</div>
-        </ion-item>
+        </ion-item> 
       </div>
     </div>
 
