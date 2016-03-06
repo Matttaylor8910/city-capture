@@ -25,9 +25,6 @@
         {
           game.startMoment = moment.unix(game.startTime);
           game.endMoment= moment.unix(game.endTime);
-
-
-
         });
         $scope.$broadcast('scroll.refreshComplete');
       });

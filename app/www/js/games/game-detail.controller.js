@@ -14,7 +14,7 @@
     $scope.getDistanceFromLatLon = getDistanceFromLatLon;
 
     // Update timers every second
-    $interval(updateTimers, 1000);
+    $scope.timers = $interval(updateTimers, 1000);
     $interval(updateLocation, 15000);
     updateLocation();
 
@@ -69,7 +69,8 @@
         $scope.start = moment.unix(newVal.startTime).format('h:mm a');
         $scope.end = moment.unix(newVal.endTime).format('h:mm a');
         var now = moment().valueOf()/1000;
-        $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
+        if (!$scope.duration)
+          $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
         $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
         $scope.blue = blue;
         $scope.orange = orange;
@@ -85,7 +86,7 @@
         $scope.duration--;
         $scope.state = 'inProgress';
         if ($scope.duration <= 0)
-          $interval.cancel(stop);
+          $interval.cancel($scope.timers);
       }
       if ($scope.timeTillGame && now <= $scope.game.startTime)
       {
