@@ -8,6 +8,7 @@
 
   function LoginController($scope, $state, $ionicHistory, LoginService, localStorage)
   {
+    $scope.name ='';
     $scope.error = false;
     $scope.login = login;
 
@@ -15,6 +16,11 @@
     {
       goTo('app.games');
     }
+
+    $scope.$watch('name', function(newVal)
+    {
+      $scope.error = false;
+    });
 
     function login(name)
     {
@@ -29,7 +35,6 @@
         function errorCallback(response)
         {
           $scope.error = true;
-          $scope.name = '';
         });
     }
 

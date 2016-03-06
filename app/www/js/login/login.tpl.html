@@ -7,7 +7,7 @@
       <div class="username-taken-error login-input" ng-style="{ visibility: error ? 'visible' : 'hidden' }">Username is already taken</div>
       <div class="list list-inset login-input">
         <label ng-class="{'error': error, 'good': !error }" class="item item-input">
-          <input class="login-field" type="text" placeholder="Enter a Username" ng-model="name">
+          <input class="login-field" type="text" placeholder="Enter a Username" ng-model="$parent.name">
         </label>
       </div>
       <button type="submit" class="button button-dark login-button ion-checkmark"></button>
