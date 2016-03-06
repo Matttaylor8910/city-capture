@@ -9,7 +9,6 @@
   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.4);
   width: 70%;
   padding: 13px 0;
-  justify-content: center;
 }
 .welcome
 {
@@ -31,6 +30,11 @@
   margin: 26px auto 15px;
   width: 70%;
   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.4);
+}
+button.login-button.ion-checkmark:before
+{
+  width: 50%;
+  margin: 0 auto;
 }
 .login-input > label
 {
