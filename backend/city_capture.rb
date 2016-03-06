@@ -127,16 +127,16 @@ Thread.new do
       firebase.push('games', startTime: Time.now.to_i + 60,
                              endTime: Time.now.to_i + 300 + 60,
                              locations: random_locations,
-                             orangeTeam: random_team,
-                             blueTeam: random_team,
+                             orangeTeam: [],
+                             blueTeam: [],
                              name: random_name)
 
       # TODO: make this six hours and remove random teams
       firebase.push('games', startTime: Time.now.to_i + 60,
                              endTime: Time.now.to_i + 60 + 60,
                              locations: random_locations,
-                             orangeTeam: random_team,
-                             blueTeam: random_team,
+                             orangeTeam: [],
+                             blueTeam: [],
                              name: random_name)
     end
 
@@ -153,8 +153,8 @@ Thread.new do
                                (g['endTime'] - g['startTime']) + 60,
                              startTime: Time.now.to_i + 60,
                              locations: random_locations,
-                             orangeTeam: random_team,
-                             blueTeam: random_team,
+                             orangeTeam: [],
+                             blueTeam: [],
                              name: random_name)
     end
 
