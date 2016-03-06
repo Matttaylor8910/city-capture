@@ -29,8 +29,20 @@
       // if there is a game stored, we need to request to remove it
       if (!_.isUndefined(localStorage.getObject('gameJoined')) && !_.isUndefined(localStorage.getObject('gameJoined').game))
       {
-        leaveGame(localStorage.getObject('gameJoined'));
+        leaveGame(localStorage.getObject('gameJoined')).then(
+          function(response)
+          {
+            sendJoinGame(obj);
+          });
       }
+      else
+      {
+        sendJoinGame(obj);
+      }
+    }
+
+    function sendJoinGame(obj)
+    {
       localStorage.setObject('gameJoined', obj);
       return $http.post(url + 'games/join', obj);
     }
