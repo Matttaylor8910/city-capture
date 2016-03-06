@@ -60,7 +60,7 @@
         });
 
         navigator.geolocation.getCurrentPosition(currentPositionSuccess);
-        navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
+        //navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
 
         var centerControlDiv = document.createElement('div');
         var centerControl = new CenterMap(centerControlDiv, map);
@@ -235,6 +235,7 @@
 
       function sendLocation()
       {
+        navigator.geolocation.getCurrentPosition(currentPositionSuccess);
         playerTeam = localStorage.getObject('gameJoined')
         postLocation({team: playerTeam, game: $scope.mapGame.$id, lat: myLatlng.lat(), long: myLatlng.long()});
       }
