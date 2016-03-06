@@ -27,37 +27,6 @@
       </div>
     </div>
 
-    <!-- Game not started case -->
-    <div class="game-not-started" ng-show="state === 'join'">
-      <div class="card">
-        <!-- Game countdown -->
-        <div class="item item-divider center">Game starts in {{ timeTillGame | seconds }}</div>
-        <!-- Join buttons -->
-        <ion-item class="join-buttons">
-          <button 
-            class="button button-energized join-button"
-            ng-click="join('orange', game)">
-            <div class="join-text">Join</div>
-          </button>
-          <button 
-            class="button button-positive join-button"
-            ng-click="join('blue', game)">
-            <div class="join-text">Join</div>
-          </button>
-        </ion-item>
-        <!-- # users -->
-        <ion-item class="space-around" ng-show="joined.length > 0">
-          <div class="user-list"><strong>{{ orangeList.length }} player<span ng-show="orangeList.length != 1">s</span></strong></div>
-          <div class="user-list"><strong>{{ blueList.length }} player<span ng-show="blueList.length != 1">s</span></strong></div>
-        </ion-item>
-        <!-- User List -->
-        <ion-item class="space-around" ng-repeat="line in joined">
-          <div class="user-list">{{ line.orange }}</div>
-          <div class="user-list">{{ line.blue }}</div>
-        </ion-item> 
-      </div>
-    </div>
-
     <!-- The flag list -->
     <div class="card flag-list" ng-show="state === 'inProgress'">
       <ion-list>
@@ -73,10 +42,41 @@
           </div>
           <div class="space-between">
             <p class="inline-block">{{ location.address | shortAddress }}</p>
-            <p class="inline-block">0.3 mi</p>
+            <p class="inline-block">{{ getDistanceFromLatLon(location.lat, location.long, myLat, myLong) | number:1}} mi</p>
           </div>
         </ion-item>
       </ion-list>
+    </div>
+
+    <!-- Game not started case -->
+    <div class="game-not-started" ng-show="state === 'join' || orangeList.length > 0 || blueList.length > 0">
+      <div class="card">
+        <!-- Game countdown -->
+        <div class="item item-divider center" ng-show="state === 'join'">Game starts in {{ timeTillGame | seconds }}</div>
+        <!-- Join buttons -->
+        <ion-item class="join-buttons" ng-show="state === 'join'">
+          <button 
+            class="button button-energized join-button"
+            ng-click="join('orange', game)">
+            <div class="join-text">Join</div>
+          </button>
+          <button 
+            class="button button-positive join-button"
+            ng-click="join('blue', game)">
+            <div class="join-text">Join</div>
+          </button>
+        </ion-item>
+        <!-- # users -->
+        <ion-item class="item item-divider space-around" ng-show="joined.length > 0">
+          <div class="user-list orange-text"><strong>{{ orangeList.length }} player<span ng-show="orangeList.length != 1">s</span></strong></div>
+          <div class="user-list blue-text"><strong>{{ blueList.length }} player<span ng-show="blueList.length != 1">s</span></strong></div>
+        </ion-item>
+        <!-- User List -->
+        <ion-item class="space-around" ng-repeat="line in joined">
+          <div class="user-list">{{ line.orange }}</div>
+          <div class="user-list">{{ line.blue }}</div>
+        </ion-item> 
+      </div>
     </div>
   </ion-content>
 </ion-view>
