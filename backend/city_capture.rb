@@ -106,13 +106,18 @@ def distance(loc1, loc2)
   rm * c # Delta in meters
 end
 
-def create_game(startTime, endTime, locations = 5)
-  firebase.push('games', startTime: startTime,
-                         endTime: endTime,
+def create_game(startTime, endTime, locations = 5, round = true)
+  firebase.push('games', startTime: ceil_minute startTime,
+                         endTime: ceil_minute endTime,
                          locations: random_locations(locations),
                          orangeTeam: [],
                          blueTeam: [],
                          name: random_name)
+end
+
+# rounds the unix timestamp up to the nearest minute
+def ceil_minute(t)
+  (t / 60) * 60 + 60
 end
 
 # maintain games
