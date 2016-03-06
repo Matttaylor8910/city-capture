@@ -245,15 +245,14 @@ namespace '/v1' do
   post '/games/leave' do
     body = JSON.parse request.body.read
     name = body['name']
-    game = body['game']
     team = body['team'] + 'Team'
     puts body
 
     # find the key to remove
-    game = games_raw[game]
+    game = games_raw[body['game']]
     return 200 if game.nil?
 
-    key = team.key(name)
+    key = game[team].key(name)
     firebase.delete "games/#{body['game']}/#{team}/#{key}"
 
     200
