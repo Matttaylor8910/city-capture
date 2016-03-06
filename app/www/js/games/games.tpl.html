@@ -13,7 +13,7 @@
             <h4>There are {{ players(game) }} player(s)</h4>
           </div>
 					<div class="game-progress">
-						{{ gameState }}
+						{{ getGameState(game.startTime, game.endTime) }}
 					</div>
         </ion-item>
       </div>

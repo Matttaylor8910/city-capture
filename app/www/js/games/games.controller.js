@@ -9,6 +9,7 @@
   function GamesController($scope, $interval, GamesService)
   {
     $scope.players = players;
+    $scope.getGameState = getGameState;
 
     refresh();
     $interval(refresh, 5000);
@@ -25,17 +26,28 @@
           game.startMoment = moment.unix(game.startTime);
           game.endMoment= moment.unix(game.endTime);
 
-          var now = moment().valueOf()/1000;
-          $scope.gameState;
-          if (now < game.startTime){
-            $scope.gameState = "Starting Soon";
-          } else {
-            $scope.gameState = "In Progress";
-          }
+
 
         });
         $scope.$broadcast('scroll.refreshComplete');
       });
+    }
+
+    function getGameState(startTime, endTime)
+    {
+      if(_.isUndefined(startTime) || _.isUndefined(endTime)) return;
+
+      var now = moment().valueOf()/1000;
+      var gameState;
+      if (now < startTime){
+        gameState = "Starting Soon";
+      } else if (now >= startTime && now < endTime) {
+        gameState = "In Progress";
+      } else {
+        gameState = "Game Over";
+      }
+
+      return gameState;
     }
 
     function players(game)
