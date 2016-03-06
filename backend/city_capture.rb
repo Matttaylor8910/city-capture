@@ -219,9 +219,9 @@ namespace '/v1' do
       end
 
       firebase.update("games/#{body['game']}/locations/#{idx}",
-                      "#orangeScore": oj)
+                      "orangeScore": oj)
       firebase.update("games/#{body['game']}/locations/#{idx}",
-                      "#blueScore": blue)
+                      "blueScore": blue)
     end
 
     200

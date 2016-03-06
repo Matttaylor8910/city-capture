@@ -62,8 +62,9 @@ n.times do |idx|
             # teleport elsewhere
             if rand > 0.5
               # teleport to other location
-              lat = game['locations'].sample['lat']
-              long = game['locations'].sample['long']
+              location = game['locations'].sample
+              lat = location['lat']
+              long = location['long']
               puts "#{idx}: Good teleporting to #{lat}, #{long}"
             else
               # teleport random
