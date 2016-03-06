@@ -7,8 +7,7 @@ require 'sinatra/cross_origin'
 require 'sinatra/json'
 require 'sinatra/namespace'
 
-# returns a firebase object so we don't have to type this fucking url 50
-# million times over the weekend
+# returns the firebase database object
 def firebase
   Firebase::Client.new 'https://torrid-fire-239.firebaseio.com/'
   # Firebase::Client.new 'https://city-capture-beta.firebaseio.com/'
@@ -127,7 +126,7 @@ Thread.new do
   loop do
     # check if any games are present; if there aren't, we probably just started
     if games.empty?
-      puts 'games is empty o no'
+      puts 'Games list is empty. Creating all...'
       [60, 3600, 21600].each do |t|
         create_game(Time.now.to_i + 300, Time.now.to_i + t + 300)
       end
@@ -139,7 +138,7 @@ Thread.new do
                   (Time.now.to_i > g['startTime'] &&
                   (g['orangeTeam'].nil? || g['orangeTeam'].empty?) &&
                   (g['blueTeam'].nil? || g['blueTeam'].empty?))
-      puts "removing #{g['id']}"
+      puts "Removing #{g['id']}"
       # remove the game from the db if it's been over for 5 minutes
       # or if the game was empty
       firebase.delete "games/#{g['id']}"
@@ -151,13 +150,12 @@ Thread.new do
 
     # protect the cpu
     sleep 1
-    puts 'checkin shit'
+    puts 'Checking game status'
     STDOUT.flush
   end
 end
 
 configure do
-  # custom port for custom shit
   set :port, 4545
   # app
   set :public_folder, '../app/www'
@@ -194,7 +192,6 @@ namespace '/v1' do
     team = body['team']
     game = games_raw[body['game']]
     loc = body['lat'], body['long']
-    puts body
 
     game['locations'].each_with_index do |l, idx|
       dist = distance([l['lat'], l['long']], loc)
@@ -248,7 +245,6 @@ namespace '/v1' do
     body = JSON.parse request.body.read
     name = body['name']
     team = body['team'] + 'Team'
-    puts body
 
     # find the key to remove
     game = games_raw[body['game']]
