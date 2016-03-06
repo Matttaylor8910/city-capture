@@ -93,7 +93,7 @@
         if (_.isUndefined(newVal)) 
           return;
         var gameJoined = localStorage.getObject('gameJoined');
-        $scope.playerTeam = gameJoined.game === newVal.$id ? newVal.$id : undefined;
+        $scope.playerTeam = gameJoined.game === newVal.$id ? gameJoined.team : undefined;
         if (_.isUndefined(map))
           initMap();
         setLocations(newVal.locations,map);
