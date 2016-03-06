@@ -137,7 +137,8 @@ Thread.new do
     # end games that are over
     games.each do |g|
       next unless Time.now.to_i - g['endTime'] > 300 ||
-                  ((g['orangeTeam'].nil? || g['orangeTeam'].empty?) &&
+                  (Time.now.to_i > g['startTime'] &&
+                  (g['orangeTeam'].nil? || g['orangeTeam'].empty?) &&
                   (g['blueTeam'].nil? || g['blueTeam'].empty?))
       puts "removing #{g['id']}"
       # remove the game from the db if it's been over for 5 minutes
