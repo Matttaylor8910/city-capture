@@ -4,9 +4,9 @@
     .module('map')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['$scope', '$http', '$stateParams','$firebase','$interval','$ionicLoading','localStorage'];
+  MapController.$inject = ['$scope', '$http', '$stateParams', '$state', '$ionicHistory', '$firebase','$interval','$ionicLoading','localStorage'];
 
-  function MapController($scope, $http, $stateParams, $firebase, $interval, $ionicLoading, localStorage)
+  function MapController($scope, $http, $stateParams, $state, $ionicHistory, $firebase, $interval, $ionicLoading, localStorage)
   {
       var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerTeam;
 
@@ -90,8 +90,14 @@
 
       $scope.$watch('mapGame',function(newVal)
       {
-        if (_.isUndefined(newVal)) 
-          return;
+        if (_.isUndefined(newVal)) return;
+        if (!newVal.locations)
+        {
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $state.go('app.games');
+        }
         var gameJoined = localStorage.getObject('gameJoined');
         $scope.playerTeam = gameJoined.game === newVal.$id ? gameJoined.team : undefined;
         if (_.isUndefined(map))
