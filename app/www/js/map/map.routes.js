@@ -9,11 +9,7 @@
     $stateProvider
       .state('app.map',
       {
-        url: '/map',
-        params: {
-          'lat': '',
-          'long': ''        
-        },
+        url: '/map/:gameID',
         views: {
           menuContent: {
             templateUrl: 'js/map/map.tpl.html',

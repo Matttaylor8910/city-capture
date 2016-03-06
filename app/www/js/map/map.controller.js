@@ -4,15 +4,14 @@
     .module('map')
     .controller('MapController', MapController);
 
-  MapController.$inject = ['$scope', '$http', '$stateParams','$ionicLoading','localStorage'];
+  MapController.$inject = ['$scope', '$http', '$stateParams','$firebase','$ionicLoading','localStorage'];
 
-  function MapController($scope, $http, $stateParams, $ionicLoading, localStorage)
+  function MapController($scope, $http, $stateParams, $firebase, $ionicLoading, localStorage)
   {
-      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerGame, playerTeam;
+      var myLatlng, myLocation, locationIcon, mapOptions, map, watchOptions, googleInfoWindow, playerTeam;
 
-      $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
-      initMap();
-      initLocalStorage();
+      //$scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
+      initLocalStorage($stateParams.gameID);
 
       function initMap()
       {
@@ -26,7 +25,7 @@
         };
 
         watchOptions = {
-          enableHighAccuracy: true,
+          enableHighAccuracy: false,
           timeout: 4000,
           maximumAge: 1000
         };
@@ -70,26 +69,41 @@
         map.controls[google.maps.ControlPosition.RIGHT].push(centerControlDiv);
       }
 
-      function initLocalStorage()
+      function initLocalStorage(gameID)
       {
-        playerTeam = localStorage.get('team');
-        playerGame = localStorage.get('game');
-        setLocations(playerGame.locations,map);
+        var url = "https://torrid-fire-239.firebaseio.com/games/";
+        var ref = new Firebase(url + gameID);
+        var sync = $firebase(ref);
+        var syncObject = sync.$asObject();
+        syncObject.$bindTo($scope, "mapGame")
+          .then(function initializePage()
+          {
+            // Nothing to do for now
+          });
       }
+
+      $scope.$watch('mapGame',function(newVal)
+      {
+        if (_.isUndefined(newVal)) 
+          return;
+        initMap();
+        setLocations(newVal.locations,map);
+      });
 
       function currentPositionSuccess(pos) 
       {
         myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         map.panTo(myLatlng);
         myLocation.setPosition(myLatlng);
-        postLocation({team: playerTeam, game: playerGame.id, lat: pos.coords.latitude, long: pos.coords.longitude});
       }
 
       function watchSuccess(pos)
       {
         myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         myLocation.setPosition(myLatlng);
-        postLocation({team: playerTeam, game: playerGame.id, lat: pos.coords.latitude, long: pos.coords.longitude});
+        playerTeam = localStorage.getObject('gameJoined').team;
+        if(playerTeam !== 'orange' || playerTeam !== 'blue')
+          postLocation({team: playerTeam, game: $scope.mapGame.$id, lat: pos.coords.latitude, long: pos.coords.longitude});
       }
 
       function watchError(err) 
