@@ -63,7 +63,7 @@ n.times do |idx|
         # game logic
         lat = 0.0
         long = 0.0
-        while game['endTime'] > Time.now.to_i
+        while game['endTime'] > Time.now.to_i + 5
           if rand > 0.9
             # teleport elsewhere
             if rand > 0.5
