@@ -81,6 +81,8 @@
       {
         $scope.duration--;
         $scope.state = 'inProgress';
+        if ($scope.duration <= 0)
+          $interval.cancel(stop);
       }
       if ($scope.timeTillGame && now <= $scope.game.startTime)
       {

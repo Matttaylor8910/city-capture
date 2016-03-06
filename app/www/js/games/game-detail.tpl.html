@@ -9,7 +9,10 @@
           <div class="orange-score">{{ orange }}</div>
           <div class="score-label">Flag<span ng-show="orange != 1">s</span></div>
         </div>
-        <div class="time-remaining">{{ duration | seconds }}</div>
+        <div class="time-remaining">
+          <div ng-show="duration > 0">{{ duration | seconds }}</div>
+          <div ng-show="duration <= 0">Game Over!</div>
+        </div>
         <div>
           <div class="blue-score">{{blue}}</div>
           <div class="score-label">Flag<span ng-show="blue != 1">s</span></div>
@@ -18,8 +21,7 @@
       <!-- Time and map link -->
       <div class="space-between time-and-map">
         <div>
-          {{ start }} - 
-          {{ end }}
+          {{ start }} - {{ end }}
         </div>
         <div ui-sref="app.map({gameID: game.$id })" ng-class="{'invisible': state === 'join'}">See Full Map ></div>
       </div>
