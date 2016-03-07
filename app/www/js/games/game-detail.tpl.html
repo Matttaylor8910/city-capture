@@ -23,7 +23,7 @@
         <div>
           {{ start }} - {{ end }}
         </div>
-        <div ui-sref="app.map({gameID: game.$id, lat: '', long: '' })" ng-class="{'invisible': state === 'join'}">See Full Map ></div>
+        <div ui-sref="app.map({gameID: game.$id, lat: '', long: '' })" ng-class="{'invisible': state !== 'inProgress'}">See Full Map ></div>
       </div>
     </div>
 
