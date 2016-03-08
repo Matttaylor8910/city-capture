@@ -14,65 +14,57 @@
 
       function initMap()
       {
-          mapOptions = {
-            center: new google.maps.LatLng(43.604206, -116.204356),
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            mapTypeControl: false,
-            streetViewControl: false,
-            zoomControl: true
-          };
+        mapOptions = {
+          center: new google.maps.LatLng(43.604206, -116.204356),
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          streetViewControl: false,
+          zoomControl: true
+        };
 
-          posOptions = {
-            enableHighAccuracy: true,
-            timeout: 4000,
-            maximumAge: 1000
-          };
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+        navigator.geolocation.watchPosition(watchPositionSuccess);
+        if($scope.playerTeam == 'orange')
+        {
+          locationIcon = new google.maps.MarkerImage(
+            "img/orange-dot.png",
+            null, /* size is determined at runtime */
+            null, /* origin is 0,0 */
+            null, /* anchor is bottom center of the scaled image */
+            new google.maps.Size(18, 18)
+          ); 
+        }else{
+          locationIcon = new google.maps.MarkerImage(
+            "img/blue-dot.png",
+            null, /* size is determined at runtime */
+            null, /* origin is 0,0 */
+            null, /* anchor is bottom center of the scaled image */
+            new google.maps.Size(18, 18)
+          ); 
+        }
 
-          map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        $scope.myLocation = new google.maps.Marker({
+            clickable: false,
+            icon: locationIcon,
+            shadow: null,
+            zIndex: 999,
+            map: map
+        });  
 
-          if($scope.playerTeam == 'orange')
-          {
-            locationIcon = new google.maps.MarkerImage(
-              "img/orange-dot.png",
-              null, /* size is determined at runtime */
-              null, /* origin is 0,0 */
-              null, /* anchor is bottom center of the scaled image */
-              new google.maps.Size(18, 18)
-            ); 
-          }else{
-            locationIcon = new google.maps.MarkerImage(
-              "img/blue-dot.png",
-              null, /* size is determined at runtime */
-              null, /* origin is 0,0 */
-              null, /* anchor is bottom center of the scaled image */
-              new google.maps.Size(18, 18)
-            ); 
-          }
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new CenterMap(centerControlDiv, map);
 
-          $scope.myLocation = new google.maps.Marker({
-              clickable: false,
-              icon: locationIcon,
-              shadow: null,
-              zIndex: 999,
-              map: map
-          });  
-          
-          navigator.geolocation.getCurrentPosition(currentPositionSuccess, null, posOptions);
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.RIGHT].push(centerControlDiv);
+        $scope.centerControl = false;
 
-            var centerControlDiv = document.createElement('div');
-            var centerControl = new CenterMap(centerControlDiv, map);
-
-            centerControlDiv.index = 1;
-            map.controls[google.maps.ControlPosition.RIGHT].push(centerControlDiv);
-            $scope.centerControl = false;
-
-          if($stateParams.lat !== '')
-          {
-            $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
-            map.panTo($scope.panLocation);
-          }
+        if($stateParams.lat !== '')
+        {
+          $scope.panLocation = new google.maps.LatLng($stateParams.lat, $stateParams.long);
+          map.panTo($scope.panLocation);
+        }
       }
 
       function initLocalStorage(gameID)
@@ -105,10 +97,10 @@
         setLocations(newVal.locations,map);
         // only once, and need to be in game
         if(!$scope.locationInterval && (_.contains($scope.mapGame.orangeTeam, localStorage.get('name')) || _.contains($scope.mapGame.blueTeam, localStorage.get('name'))))
-          $scope.locationInterval = $interval(sendLocation, 5000);
+          $scope.locationInterval = $interval(sendLocation, 1000);
       });
 
-      function currentPositionSuccess(pos) 
+      function watchPositionSuccess(pos) 
       {
         $scope.myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         $scope.myLocation.setPosition($scope.myLatlng);
@@ -129,17 +121,6 @@
             icon: pinIcon,
             zIndex: 5
           });
-
-          // marker.addListener('click', function()
-          // {
-          //   if($scope.googleInfoWindow)
-          //   {
-          //     $scope.googleInfoWindow.close();
-          //   }
-          //   $scope.googleInfoWindow = new google.maps.InfoWindow({ content: getInfoWindowHTML(location) });
-          //   marker.setPosition(new google.maps.LatLng(location.lat, location.long));
-          //   $scope.googleInfoWindow.open(map,marker);
-          // });
 
           $scope.markers.push(marker);
         });
@@ -207,32 +188,16 @@
         controlText.innerHTML = "<div class='ion-pinpoint' />";
         controlUI.appendChild(controlText);
 
-        // Setup the click event listeners: simply set the map to Chicago.
         controlUI.addEventListener('click', function() {
           map.panTo($scope.myLatlng);
         });
       }
 
-      function getInfoWindowHTML(location)
-      {
-        if(location.blueScore > location.orangeScore)
-        {
-          return "<div>" + location.name + "</div><div class='blue-capture'> Blue: " + location.blueScore + "</div>";
-        }
-        else if(location.blueScore < location.orangeScore)
-        {
-          return "<div>" + location.name + "</div><div class='orange-capture'> Orange: " + location.orangeScore + "</div>";
-        }
-        else
-        {
-          return "<div>" + location.name + "</div><div class='none-capture'> Unclaimed </div>";
-        }
-      }
-
       function sendLocation()
       {
-        navigator.geolocation.getCurrentPosition(currentPositionSuccess);
-        postLocation({team: $scope.playerTeam, game: $scope.mapGame.$id, lat: $scope.myLatlng.lat(), long: $scope.myLatlng.lng() });
+        navigator.geolocation.getCurrentPosition(watchPositionSuccess);
+        if(!myLatlng)
+          postLocation({team: $scope.playerTeam, game: $scope.mapGame.$id, lat: $scope.myLatlng.lat(), long: $scope.myLatlng.lng() });
       }
 
       function postLocation(userGame)
