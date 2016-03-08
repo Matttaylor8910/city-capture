@@ -121,6 +121,9 @@ def ceil_minute(t)
   (t / 60) * 60 + 60
 end
 
+# stack trace for thread dying
+Thread.abort_on_exception = true
+
 # maintain games
 Thread.new do
   loop do
