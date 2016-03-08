@@ -193,6 +193,9 @@ namespace '/v1' do
     game = games_raw[body['game']]
     loc = body['lat'], body['long']
 
+    # stop printing a million stack traces
+    return 200 if game.nil?
+
     game['locations'].each_with_index do |l, idx|
       dist = distance([l['lat'], l['long']], loc)
 
