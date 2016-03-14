@@ -42,37 +42,37 @@
     }
 
     $scope.$watch('game', function(newVal)
+    {
+      if (_.isUndefined(newVal)) return;
+      if (!newVal.locations)
       {
-        if (_.isUndefined(newVal)) return;
-        if (!newVal.locations)
-        {
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
-          $state.go('app.games');
-        }
-        var orange = 0, blue = 0;
-        _.each(newVal.locations, function(location)
-        {
-          if (location.blueScore > 0)
-          {
-            blue++;
-          }
-          if (location.orangeScore > 0)
-          {
-            orange++;
-          }
+        $ionicHistory.nextViewOptions({
+          disableBack: true
         });
-        $scope.start = moment.unix(newVal.startTime).format('h:mm a');
-        $scope.end = moment.unix(newVal.endTime).format('h:mm a');
-        var now = moment().valueOf()/1000;
-        if (!$scope.duration)
-          $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
-        $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
-        $scope.blue = blue;
-        $scope.orange = orange;
-        $scope.joined = joinTeamArrays(newVal.orangeTeam, newVal.blueTeam);
+        $state.go('app.games');
+      }
+      var orange = 0, blue = 0;
+      _.each(newVal.locations, function(location)
+      {
+        if (location.blueScore > 0)
+        {
+          blue++;
+        }
+        if (location.orangeScore > 0)
+        {
+          orange++;
+        }
       });
+      $scope.start = moment.unix(newVal.startTime).format('h:mm a');
+      $scope.end = moment.unix(newVal.endTime).format('h:mm a');
+      var now = moment().valueOf()/1000;
+      if (!$scope.duration)
+        $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
+      $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
+      $scope.blue = blue;
+      $scope.orange = orange;
+      $scope.joined = joinTeamArrays(newVal.orangeTeam, newVal.blueTeam);
+    });
 
     function updateTimers()
     {
