@@ -41,41 +41,41 @@
     }
 
     $scope.$watch('game', function(newVal)
+    {
+      if (_.isUndefined(newVal)) return;
+      if (!newVal.locations)
       {
-        if (_.isUndefined(newVal)) return;
-        if (!newVal.locations)
-        {
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
-          $state.go('app.games');
-        }
-        var orange = 0, blue = 0;
-        _.each(newVal.locations, function(location)
-        {
-          if (location.blueScore > 0)
-          {
-            blue++;
-          }
-          if (location.orangeScore > 0)
-          {
-            orange++;
-          }
+        $ionicHistory.nextViewOptions({
+          disableBack: true
         });
-        var gameJoined = localStorage.getObject('gameJoined');
-        $scope.playerTeam = gameJoined.game === newVal.$id ? gameJoined.team : undefined;
-        $scope.start = moment.unix(newVal.startTime).format('h:mm a');
-        $scope.end = moment.unix(newVal.endTime).format('h:mm a');
-        var now = moment().valueOf()/1000;
-        if (!$scope.duration)
-          $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
-        $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
-        $scope.blue = blue;
-        $scope.orange = orange;
-        $scope.joined = joinTeamArrays(newVal.orangeTeam, newVal.blueTeam);
-        if(!$scope.locationInterval && (_.contains($scope.mapGame.orangeTeam, localStorage.get('name')) || _.contains($scope.mapGame.blueTeam, localStorage.get('name'))))
-          $scope.locationInterval = $interval(sendLocation, 1000);
+        $state.go('app.games');
+      }
+      var orange = 0, blue = 0;
+      _.each(newVal.locations, function(location)
+      {
+        if (location.blueScore > 0)
+        {
+          blue++;
+        }
+        if (location.orangeScore > 0)
+        {
+          orange++;
+        }
       });
+      var gameJoined = localStorage.getObject('gameJoined');
+      $scope.playerTeam = gameJoined.game === newVal.$id ? gameJoined.team : undefined;
+      $scope.start = moment.unix(newVal.startTime).format('h:mm a');
+      $scope.end = moment.unix(newVal.endTime).format('h:mm a');
+      var now = moment().valueOf()/1000;
+      if (!$scope.duration)
+        $scope.duration = now > newVal.startTime ? newVal.endTime - now : newVal.endTime - newVal.startTime;
+      $scope.timeTillGame = now < newVal.startTime ? newVal.startTime - now : 0;
+      $scope.blue = blue;
+      $scope.orange = orange;
+      $scope.joined = joinTeamArrays(newVal.orangeTeam, newVal.blueTeam);
+      if(!$scope.locationInterval && (_.contains($scope.mapGame.orangeTeam, localStorage.get('name')) || _.contains($scope.mapGame.blueTeam, localStorage.get('name'))))
+        $scope.locationInterval = $interval(sendLocation, 1000);
+    });
 
     function updateTimers()
     {
