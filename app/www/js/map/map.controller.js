@@ -196,7 +196,7 @@
       function sendLocation()
       {
         navigator.geolocation.getCurrentPosition(watchPositionSuccess);
-        if(!myLatlng)
+        if(myLatlng)
           postLocation({team: $scope.playerTeam, game: $scope.mapGame.$id, lat: $scope.myLatlng.lat(), long: $scope.myLatlng.lng() });
       }
 

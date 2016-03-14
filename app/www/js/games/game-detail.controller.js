@@ -15,7 +15,6 @@
 
     // Update timers every second
     $scope.timers = $interval(updateTimers, 1000);
-    $interval(updateLocation, 15000);
     updateLocation();
 
     function join(color, game)
@@ -63,6 +62,8 @@
             orange++;
           }
         });
+        var gameJoined = localStorage.getObject('gameJoined');
+        $scope.playerTeam = gameJoined.game === newVal.$id ? gameJoined.team : undefined;
         $scope.start = moment.unix(newVal.startTime).format('h:mm a');
         $scope.end = moment.unix(newVal.endTime).format('h:mm a');
         var now = moment().valueOf()/1000;
@@ -72,6 +73,8 @@
         $scope.blue = blue;
         $scope.orange = orange;
         $scope.joined = joinTeamArrays(newVal.orangeTeam, newVal.blueTeam);
+        if(!$scope.locationInterval && (_.contains($scope.mapGame.orangeTeam, localStorage.get('name')) || _.contains($scope.mapGame.blueTeam, localStorage.get('name'))))
+          $scope.locationInterval = $interval(sendLocation, 1000);
       });
 
     function updateTimers()
@@ -95,11 +98,9 @@
     function updateLocation()
     {
       var options = {
-        timeout: 15000,
-        maximumAge: 10000,
-        enableHighAccuracy: false
+        enableHighAccuracy: true
       };
-      navigator.geolocation.getCurrentPosition(onSuccess, null, options);
+      navigator.geolocation.watchPosition(onSuccess, null, options);
     }
 
     function onSuccess(pos)
@@ -147,6 +148,20 @@
 
     function deg2rad(deg) {
       return deg * (Math.PI/180)
+    }
+
+    function sendLocation()
+    {
+      navigator.geolocation.getCurrentPosition(onSuccess);
+      if(myLat && myLong)
+        postLocation({team: $scope.playerTeam, game: $scope.game.$id, lat: $scope.myLat, long: $scope.myLong });
+    }
+
+    function postLocation(userGame)
+    {
+      var url = 'http://cc.butthole.tv/v1/';
+
+      $http.post(url + 'location', userGame);
     }
   }
 })();
