@@ -6,8 +6,8 @@ City Capture is a real-time virtual capture the flag game where there are multip
 
 ## What's next?
 
-City Capture was built in a weekend by sleep-deprived college students fueled by goldfish and Monster. Development is currently halted but it's idea we'd like to get back around to if there's enough interest.
+City Capture was built in a weekend by sleep-deprived college students fueled by goldfish and Monster. Development is currently halted and we will probably never work on it again. Thanks.
 
 ## How can I help?
 
-Subbmit a PR or reach out if you're interested in what ideas we have.
+Submit a PR or reach out if you're interested in what ideas we have.
